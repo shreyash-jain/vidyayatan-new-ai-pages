@@ -315,13 +315,21 @@ export default function Home() {
           </span>
             <div className="flex gap-12 animate-scroll-infinite whitespace-nowrap" style={{ animation: 'scroll-infinite 30s linear infinite' }}>
               {trustedLogos.concat(trustedLogos).map((logo, idx) => (
-                <Image
+                <img
                   key={idx}
                   src={`/assets/logos/${logo}`}
                   alt={`Trusted company logo ${idx + 1}`}
-                  width={112}
-                  height={56}
                   className="h-10 md:h-14 w-auto object-contain"
+                  style={{ 
+                    maxWidth: '112px', 
+                    height: 'auto',
+                    filter: 'grayscale(20%)'
+                  }}
+                  onError={(e) => {
+                    console.error(`Failed to load logo: ${logo}`);
+                    e.currentTarget.style.display = 'none';
+                  }}
+                  loading="lazy"
                 />
               ))}
           </div>
