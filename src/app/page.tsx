@@ -254,11 +254,14 @@ export default function Home() {
   }, [useCaseApi])
 
   return (
-    <div className="relative w-full min-h-screen flex flex-col items-center bg-white overflow-hidden gradient-wave-bg">
+    <main className="relative w-full min-h-screen flex flex-col items-center bg-white overflow-hidden gradient-wave-bg">
       <DecorativeCircles />
       <Header />
       {/* Hero Section */}
-      <section className="w-full pt-32 md:pt-44 pb-16">
+      <section className="w-full pt-32 md:pt-44 pb-16" id="home"
+        itemScope 
+        itemType="https://schema.org/WebPageElement"
+        itemProp="mainContentOfPage">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center gap-8">
           {/* Text Content */}
           <motion.div
@@ -308,17 +311,17 @@ export default function Home() {
     </section>
 
       {/* Trusted by Section */}
-      <section className="relative z-10 w-full py-8 md:py-16">
+      <section className="relative z-10 w-full py-8 md:py-16" id="trusted-by" aria-label="Companies that trust Vidyayatan AI">
         <div className="flex flex-col items-center">
-          <span className="text-base md:text-lg text-[#495057] font-bold mb-6 tracking-wide" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+          <h2 className="text-base md:text-lg text-[#495057] font-bold mb-6 tracking-wide" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
             Trusted by Industry Leaders
-          </span>
+          </h2>
             <div className="flex gap-12 animate-scroll-infinite whitespace-nowrap" style={{ animation: 'scroll-infinite 30s linear infinite' }}>
               {trustedLogos.concat(trustedLogos).map((logo, idx) => (
                 <img
                   key={idx}
                   src={`/assets/logos/${logo}`}
-                  alt={`Trusted company logo ${idx + 1}`}
+                  alt={`Industry leader company logo - trusted partner of Vidyayatan AI`}
                   className="h-10 md:h-14 w-auto object-contain"
                   style={{ 
                     maxWidth: '112px', 
@@ -337,7 +340,7 @@ export default function Home() {
       </section>
 
       {/* Modern Problem & AI Solutions Section (Unified) */}
-      <section className="w-full py-16 md:py-24 bg-slate-50">
+      <section className="w-full py-16 md:py-24 bg-slate-50" id="problems" aria-label="Business challenges we solve">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold" style={{ color: "#495057", fontFamily: 'var(--font-space-grotesk)' }}>
@@ -376,12 +379,12 @@ export default function Home() {
       </section>
 
       {/* The Vidyayatan AI Solution Section */}
-      <section className="relative z-10 w-full py-16 md:py-20">
+      <section className="relative z-10 w-full py-16 md:py-20" id="services" aria-label="Our AI services and solutions">
         <div className="max-w-6xl mx-auto px-4 sm:px-8 md:px-20 flex flex-col gap-8 py-12 md:py-20">
           <div>
-            <h3 className="text-3xl md:text-4xl font-bold text-center mb-4" style={{ color: '#495057', fontFamily: 'var(--font-space-grotesk)' }}>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" style={{ color: '#495057', fontFamily: 'var(--font-space-grotesk)' }}>
               Our Next-Gen AI Toolbox
-            </h3>
+            </h2>
             <p className="text-base md:text-lg text-center text-gray-600 mb-12 max-w-3xl mx-auto" style={{ fontFamily: 'var(--font-lato)' }}>
               We leverage a suite of powerful, cutting-edge AI tools to build intelligent solutions that drive growth and efficiency.
             </p>
@@ -430,7 +433,7 @@ export default function Home() {
       </section>
 
       {/* AI Employees Section */}
-      <section className="relative z-10 w-full py-16 md:py-20">
+      <section className="relative z-10 w-full py-16 md:py-20" id="ai-employees" aria-label="Meet our AI team members">
         <div className="max-w-6xl mx-auto px-4 sm:px-8 md:px-20 flex flex-col gap-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center" style={{ color: '#495057', fontFamily: 'var(--font-space-grotesk)' }}>
             Meet Your AI Employees
@@ -473,7 +476,7 @@ export default function Home() {
                         </div>
                         <Image
                           src={employee.image}
-                          alt={employee.name}
+                          alt={`${employee.name} - ${employee.role} AI agent specialized in ${employee.description.split(',')[0].toLowerCase()}`}
                           width={500}
                           height={500}
                           className="relative z-10 rounded-xl object-contain"
@@ -490,7 +493,7 @@ export default function Home() {
       </section>
 
       {/* Use Cases Section */}
-      <section className="relative z-10 w-full py-16 md:py-20">
+      <section className="relative z-10 w-full py-16 md:py-20" id="use-cases" aria-label="Real-world AI implementation examples">
         <div className="max-w-6xl mx-auto px-4 sm:px-8 md:px-20 flex flex-col gap-8">
             <h2 className="text-3xl md:text-4xl font-bold text-center" style={{ color: '#495057', fontFamily: 'var(--font-space-grotesk)' }}>
                 Industry Use Cases
@@ -530,6 +533,6 @@ export default function Home() {
 
       <Faq />
 
-      </div>
+      </main>
     );
 }
