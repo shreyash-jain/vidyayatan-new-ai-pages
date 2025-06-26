@@ -10,7 +10,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { ArrowRight } from "lucide-react";
+
 
 export function BookingDialog({ children }: { children: React.ReactNode }) {
   return (
@@ -22,7 +22,7 @@ export function BookingDialog({ children }: { children: React.ReactNode }) {
             Book a Meeting
           </DialogTitle>
           <DialogDescription style={{ fontFamily: "var(--font-lato)" }}>
-            Fill in your details and we'll be in touch to schedule a meeting.
+            Fill in your details and we&rsquo;ll be in touch to schedule a meeting.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">

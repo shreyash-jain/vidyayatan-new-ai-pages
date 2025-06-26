@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, type Transition } from "framer-motion";
 import React from "react";
-import { AlertTriangle, BarChart2, GitCommit } from "lucide-react";
+import { AlertTriangle, BarChart2 } from "lucide-react";
 
 const LogLine = ({ className, children, duration = 12, delay = 0 }: { className?: string; children?: React.ReactNode; duration?: number; delay?: number }) => (
   <motion.p
@@ -13,7 +13,7 @@ const LogLine = ({ className, children, duration = 12, delay = 0 }: { className?
   </motion.p>
 );
 
-const AlertIcon = ({ className, transition }: { className?: string; transition?: any }) => (
+const AlertIcon = ({ className, transition }: { className?: string; transition?: Transition }) => (
     <motion.div
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: [1, 1.2, 1], opacity: [1, 1, 0] }}

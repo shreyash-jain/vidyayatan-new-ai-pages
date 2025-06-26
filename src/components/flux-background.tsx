@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
+import { motion, type Transition } from "framer-motion";
 import React from "react";
 import { CheckCircle, Smartphone, Tablet, Globe, Bug } from "lucide-react";
 
-const DeviceIcon = ({ className, children, transition }: { className?: string; children?: React.ReactNode; transition?: any }) => (
+const DeviceIcon = ({ className, children, transition }: { className?: string; children?: React.ReactNode; transition?: Transition }) => (
     <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: [0, 0.8, 0] }}
@@ -13,7 +13,7 @@ const DeviceIcon = ({ className, children, transition }: { className?: string; c
     </motion.div>
 );
 
-const BugIcon = ({ className, transition }: { className?: string; transition?: any }) => (
+const BugIcon = ({ className, transition }: { className?: string; transition?: Transition }) => (
     <motion.div
         initial={{ scale: 0, rotate: -45 }}
         animate={{ scale: [0, 1, 0], rotate: [-45, 0, 45] }}
@@ -34,7 +34,7 @@ const TestSpinner = ({ className }: { className?: string }) => (
     </motion.div>
 );
 
-const ProgressBar = ({ className, transition }: { className?: string; transition?: any }) => (
+const ProgressBar = ({ className, transition }: { className?: string; transition?: Transition }) => (
     <motion.div
         className={`absolute h-2 bg-blue-200 rounded-full ${className}`}
         initial={{ width: 0 }}
@@ -43,7 +43,7 @@ const ProgressBar = ({ className, transition }: { className?: string; transition
     />
 );
 
-const FlowchartLine = ({ className, d, transition }: { className?: string; d: string; transition?: any }) => (
+const FlowchartLine = ({ className, d, transition }: { className?: string; d: string; transition?: Transition }) => (
     <motion.svg
         className={`absolute ${className}`}
         width="100"

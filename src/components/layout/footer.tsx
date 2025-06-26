@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+
 import { Linkedin, Twitter, Github, Youtube, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { BookingDialog } from '../booking-dialog';

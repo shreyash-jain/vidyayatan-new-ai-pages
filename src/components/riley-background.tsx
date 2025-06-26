@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, type Transition } from "framer-motion";
 import React from "react";
 import { Database, Shield } from "lucide-react";
 
@@ -20,7 +20,7 @@ const MicroserviceBlock = ({ className, children, color = "blue" }: { className?
     );
 };
 
-const DataPacket = ({ className, transition, color = "teal", animate }: { className?: string; transition?: any, color?: "blue" | "teal" | "purple", animate?: any }) => {
+const DataPacket = ({ className, transition, color = "teal", animate }: { className?: string; transition?: Transition, color?: "blue" | "teal" | "purple", animate?: any /* eslint-disable-line @typescript-eslint/no-explicit-any */ }) => {
     const colorClasses = {
         blue: "bg-blue-500",
         teal: "bg-teal-500",
@@ -29,7 +29,7 @@ const DataPacket = ({ className, transition, color = "teal", animate }: { classN
     return <motion.div animate={animate} transition={transition} className={`absolute w-1.5 h-1.5 rounded-full ${colorClasses[color]} ${className}`} />;
 };
 
-const IconElement = ({ className, children, transition }: { className?: string; children?: React.ReactNode; transition?: any }) => (
+const IconElement = ({ className, children, transition }: { className?: string; children?: React.ReactNode; transition?: Transition }) => (
     <motion.div
         initial={{ opacity: 0.1, scale: 0.8 }}
         animate={{ opacity: [0.1, 0.7, 0.1] }}

@@ -1,18 +1,14 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Image from "next/image";
 import { Header } from "@/components/layout/header";
-import { ArrowRight, Code, Zap, Bot, Paintbrush, BrainCircuit, MessageSquare, Star, TrendingUp, User, Database, Briefcase, Layers, Palette, TestTube2 } from "lucide-react";
+import { ArrowRight, Code, Zap, Bot, Paintbrush, BrainCircuit } from "lucide-react";
 import { motion } from "framer-motion";
 import { DecorativeCircles } from "@/components/ui/decorative-circles";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { BookingDialog } from "@/components/booking-dialog";
@@ -30,21 +26,13 @@ import { UseCaseCard } from "@/components/use-case-card";
 import type { UseCase } from "@/components/use-case-card";
 import { CarouselPagination } from "@/components/ui/carousel-pagination";
 import { HeroAnimation } from "@/components/hero-animation";
-import { ClientPanel } from "@/components/client-panel";
+
 import { BottleneckCard } from '@/components/bottleneck-card';
 import HowItWorks from "@/components/how-it-works";
 import SkillStack from "@/components/skill-stack";
 import Faq from "@/components/faq";
 
-const logos = [
-  { name: "KOC", src: "/assets/logos/koc.png" },
-  { name: "TNT", src: "/assets/logos/tnt.png" },
-  { name: "Kansoft", src: "/assets/logos/kansoft.png" },
-  { name: "Galaxy", src: "/assets/logos/galaxy.png" },
-  { name: "Fusion Galaxxy", src: "/assets/logos/fusion.png" },
-  { name: "Thot", src: "/assets/logos/thot.png" },
-  { name: "FGSPL", src: "/assets/logos/fgspl.png" },
-];
+
 
 const trustedLogos = [
   "Frame 1000000941.png",
@@ -327,10 +315,12 @@ export default function Home() {
           </span>
             <div className="flex gap-12 animate-scroll-infinite whitespace-nowrap" style={{ animation: 'scroll-infinite 30s linear infinite' }}>
               {trustedLogos.concat(trustedLogos).map((logo, idx) => (
-                <img
+                <Image
                   key={idx}
                   src={`/assets/logos/${logo}`}
                   alt={`Trusted company logo ${idx + 1}`}
+                  width={112}
+                  height={56}
                   className="h-10 md:h-14 w-auto object-contain"
                 />
               ))}
@@ -438,7 +428,7 @@ export default function Home() {
             Meet Your AI Employees
           </h2>
           <blockquote className="text-base md:text-lg text-center text-gray-600 italic px-2 md:px-16" style={{ fontFamily: 'var(--font-lato)' }}>
-            "Don't hire another department—activate one."
+            &ldquo;Don&rsquo;t hire another department—activate one.&rdquo;
           </blockquote>
           <Carousel
             setApi={setEmployeeApi}

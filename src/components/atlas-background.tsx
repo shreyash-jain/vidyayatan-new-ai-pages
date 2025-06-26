@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
+import { motion, type Transition } from "framer-motion";
 import React from "react";
-import { Palette, Type, MousePointer } from "lucide-react";
+import { Type } from "lucide-react";
 
-const WireframeBlock = ({ className, transition, children }: { className?: string; transition?: any; children?: React.ReactNode }) => (
+const WireframeBlock = ({ className, transition, children }: { className?: string; transition?: Transition; children?: React.ReactNode }) => (
     <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: [0, 0.7, 0] }}

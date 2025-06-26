@@ -38,7 +38,7 @@ const steps = [
   },
 ];
 
-const Connector = () => <div className="flex-1 h-px bg-slate-200" />;
+
 
 const HowItWorks = () => {
   return (
@@ -49,7 +49,7 @@ const HowItWorks = () => {
             How Vidyayatan AI Works
           </h2>
           <p className="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
-            From first contact to optimized results—here's how we bring AI to your business.
+            From first contact to optimized results—here&rsquo;s how we bring AI to your business.
           </p>
         </div>
 

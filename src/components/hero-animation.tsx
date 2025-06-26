@@ -129,7 +129,7 @@ export const HeroAnimation: React.FC = () => {
         const interval = setInterval(() => {
             setActiveIndex(currentIndexRef.current);
 
-            const timeout = setTimeout(() => {
+            setTimeout(() => {
                 setActiveIndex(null);
             }, 3500); // Hold chip for 3.5s
 

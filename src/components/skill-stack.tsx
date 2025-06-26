@@ -106,7 +106,7 @@ const SkillStack = () => {
             AI-Employee <span className="text-blue-600">Skill Stack</span>
           </h2>
           <p className="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
-            Our AI teammates aren't one-trick bots — they're full-stack specialists pre-loaded with advanced capabilities. Combine, extend, or tailor them for your unique workflows.
+            Our AI teammates aren&rsquo;t one-trick bots — they&rsquo;re full-stack specialists pre-loaded with advanced capabilities. Combine, extend, or tailor them for your unique workflows.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">

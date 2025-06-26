@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
+import { motion, type Transition } from "framer-motion";
 import React from "react";
-import { Check, MessageSquare, FileText, Share2 } from "lucide-react";
+import { Check, MessageSquare, FileText } from "lucide-react";
 
-const TaskCard = ({ className, children, transition }: { className?: string; children?: React.ReactNode; transition?: any }) => (
+const TaskCard = ({ className, children, transition }: { className?: string; children?: React.ReactNode; transition?: Transition }) => (
     <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: [0, 1, 1, 0], y: [50, 0, 0, -50] }}
@@ -13,7 +13,7 @@ const TaskCard = ({ className, children, transition }: { className?: string; chi
     </motion.div>
 );
 
-const FeedbackIcon = ({ className, transition }: { className?: string; transition?: any }) => (
+const FeedbackIcon = ({ className, transition }: { className?: string; transition?: Transition }) => (
     <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: [0, 1, 1, 0] }}
@@ -24,7 +24,7 @@ const FeedbackIcon = ({ className, transition }: { className?: string; transitio
     </motion.div>
 );
 
-const DocumentIcon = ({ className, transition }: { className?: string; transition?: any }) => (
+const DocumentIcon = ({ className, transition }: { className?: string; transition?: Transition }) => (
     <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: [0, 0.7, 0] }}

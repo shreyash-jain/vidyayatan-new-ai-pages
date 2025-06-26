@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 const faqs = [
@@ -50,7 +50,7 @@ const faqs = [
       <>
         Our AI can automate{' '}
         <span className="text-slate-700 font-semibold">customer support, document processing, email management, scheduling, data entry, reporting</span>,
-        and more. It's built to flex across industries like retail, logistics, healthcare, and finance.
+        and more. It&rsquo;s built to flex across industries like retail, logistics, healthcare, and finance.
       </>
     ),
   },
@@ -105,7 +105,7 @@ const Faq = () => {
             Frequently Asked Questions
           </h2>
           <p className="mt-4 text-lg text-slate-600">
-            Still curious? Here's everything you might want to know about our AI teammates.
+            Still curious? Here&rsquo;s everything you might want to know about our AI teammates.
           </p>
         </div>
         <div className="max-w-4xl mx-auto">

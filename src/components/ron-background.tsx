@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, type Transition } from "framer-motion";
 import React from "react";
-import { MoveRight, MousePointer2 } from "lucide-react";
+import { MousePointer2 } from "lucide-react";
 
 const CodeSnippet = ({ children, className }: { children: React.ReactNode; className?: string }) => (
   <motion.pre
@@ -13,7 +13,7 @@ const CodeSnippet = ({ children, className }: { children: React.ReactNode; class
   </motion.pre>
 );
 
-const UiComponent = ({ className, children, transition }: { className?: string; children?: React.ReactNode; transition?: any }) => (
+const UiComponent = ({ className, children, transition }: { className?: string; children?: React.ReactNode; transition?: Transition }) => (
     <motion.div
         initial={{ opacity: 0.1, y: '100%' }}
         animate={{ opacity: [0.1, 0.9, 0.1], y: ['100%', '-100%', '-100%'] }}
@@ -24,7 +24,7 @@ const UiComponent = ({ className, children, transition }: { className?: string; 
     </motion.div>
 );
 
-const Wireframe = ({ className, transition }: { className?: string; transition?: any }) => (
+const Wireframe = ({ className, transition }: { className?: string; transition?: Transition }) => (
     <motion.div
         initial={{ opacity: 0.2 }}
         animate={{ opacity: [0.2, 0.5, 0.2] }}
