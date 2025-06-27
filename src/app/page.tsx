@@ -332,7 +332,7 @@ export default function Home() {
               </motion.p>
               <motion.div
                   variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                  className="mt-6"
+                  className="mt-6 relative z-10"
               >
                   <BookingDialog>
                       <button
@@ -347,7 +347,7 @@ export default function Home() {
           </motion.div>
 
           {/* Animation */}
-          <div className="relative w-full h-[60vh] max-h-[600px]">
+          <div className="relative w-full h-[60vh] max-h-[600px] z-0">
             <HeroAnimation />
           </div>
         </div>

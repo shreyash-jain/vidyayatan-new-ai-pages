@@ -213,3 +213,42 @@
     transform: translate(20px, 0px) rotate(360deg) translateX(30px) rotate(-360deg);
   }
 }
+
+/* Phone Input Styling */
+.phone-input .PhoneInputInput {
+  border: 1px solid hsl(var(--border));
+  border-radius: calc(var(--radius) - 2px);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  transition: border-color 0.2s;
+  background: transparent;
+  outline: none;
+  width: 100%;
+}
+
+.phone-input .PhoneInputInput:focus {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  border-color: hsl(var(--ring));
+}
+
+.phone-input .PhoneInputCountrySelect {
+  border: 1px solid hsl(var(--border));
+  border-radius: calc(var(--radius) - 2px);
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  background: transparent;
+  outline: none;
+}
+
+.phone-input .PhoneInputCountrySelect:focus {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  border-color: hsl(var(--ring));
+}
+
+.phone-input {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
