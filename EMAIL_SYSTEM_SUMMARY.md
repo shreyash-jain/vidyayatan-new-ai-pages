@@ -103,9 +103,7 @@ to: ['shreyash@vidyayatan.com', 'namita@vidyayatan.com']
 
 ### **Environment Variables Required:**
 ```env
-RESEND_API_KEY=re_B4SU8dvy_3m1h4yRVeSGZqhv5afiLCoho
-NEXT_PUBLIC_SUPABASE_URL=https://tajeaokjxtieuwmrqkxf.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
 ```
 
 ### **Database Setup:**
