@@ -8,8 +8,8 @@ import { ArrowRight, Menu, X } from "lucide-react";
 import { BookingDialog } from "../booking-dialog";
 
 const navLinks = [
-  { href: "#features", label: "Features" },
-  { href: "#pricing", label: "Pricing" },
+  { href: "#use-cases", label: "Use Cases" },
+  { href: "#ai-employees", label: "AI Employees" },
   { href: "#contact", label: "Contact" },
 ];
 

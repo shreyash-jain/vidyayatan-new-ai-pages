@@ -88,9 +88,9 @@ const Avatar: React.FC<{
                 <Image 
                     src={employee.avatar} 
                     alt="AI Employee" 
-                    width={72} 
-                    height={72} 
-                    className="rounded-full border-4 border-white shadow-xl" 
+                    width={56} 
+                    height={56} 
+                    className="w-14 h-14 md:w-[72px] md:h-[72px] rounded-full border-2 md:border-4 border-white shadow-xl" 
                 />
                 <AnimatePresence>
                     {isActive && <Chip message={employee.message} />}
@@ -111,13 +111,16 @@ export const HeroAnimation: React.FC = () => {
                 const isLeftSide = index < 3;
                 const xSideMultiplier = isLeftSide ? -1 : 1;
                 
-                // Random X within a range on either side, closer to the center
-                const x = (Math.random() * 10 + 18) * xSideMultiplier; // 18vw to 28vw on each side
+                // Responsive X positioning - smaller range on mobile
+                const isMobile = window.innerWidth < 768;
+                const xRange = isMobile ? 8 : 10; // Smaller range on mobile
+                const xBase = isMobile ? 15 : 18; // Closer to center on mobile
+                const x = (Math.random() * xRange + xBase) * xSideMultiplier;
 
                 // Distribute Y vertically, more compactly
                 const yIndex = index % 3; // 0, 1, 2 for both sides
-                const yBase = (yIndex - 1) * 18; // -18vh, 0vh, 18vh
-                const y = yBase + (Math.random() * 8 - 4); // Add some jitter
+                const yBase = (yIndex - 1) * (isMobile ? 12 : 18); // Smaller spread on mobile
+                const y = yBase + (Math.random() * (isMobile ? 4 : 8) - (isMobile ? 2 : 4)); // Less jitter on mobile
 
                 return {
                     x: `${x}vw`,
@@ -145,27 +148,27 @@ export const HeroAnimation: React.FC = () => {
 
     return (
         <div className="absolute inset-0 w-full h-full pointer-events-none">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-4">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2 md:gap-4">
                 <motion.div
                     className="text-center"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
                 >
-                    <p className="text-5xl font-bold text-purple-700" style={{fontFamily: 'var(--font-space-grotesk)'}}>
+                    <p className="text-3xl md:text-5xl font-bold text-purple-700" style={{fontFamily: 'var(--font-space-grotesk)'}}>
                         <AnimatedCounter to={10} />+
                     </p>
-                    <p className="text-md font-semibold text-gray-600 tracking-wider" style={{fontFamily: 'var(--font-lato)'}}>
+                    <p className="text-sm md:text-md font-semibold text-gray-600 tracking-wider" style={{fontFamily: 'var(--font-lato)'}}>
                         HAPPY CLIENTS
                     </p>
                 </motion.div>
                 <motion.div 
-                    className="flex items-center justify-center w-32 h-32 bg-gradient-to-br from-purple-100 to-violet-200 rounded-full shadow-2xl"
+                    className="flex items-center justify-center w-20 h-20 md:w-32 md:h-32 bg-gradient-to-br from-purple-100 to-violet-200 rounded-full shadow-2xl"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
                 >
-                    <Briefcase className="w-12 h-12 text-purple-600" />
+                    <Briefcase className="w-8 h-8 md:w-12 md:h-12 text-purple-600" />
                 </motion.div>
             </div>
 

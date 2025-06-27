@@ -321,7 +321,7 @@ export default function Home() {
                   className="text-4xl sm:text-5xl md:text-6xl font-bold"
                   style={{ color: "#495057", fontFamily: 'var(--font-space-grotesk)' }}
               >
-                  Intelligent AI for Modern Business.
+                  <span className="bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] bg-clip-text text-transparent">Vidyayatan AI</span> for Modern Business.
               </motion.h1>
               <motion.p
                   variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
@@ -347,7 +347,7 @@ export default function Home() {
           </motion.div>
 
           {/* Animation */}
-          <div className="relative w-full h-[60vh] max-h-[600px] z-0">
+          <div className="relative w-full h-[40vh] md:h-[60vh] max-h-[400px] md:max-h-[600px] z-0">
             <HeroAnimation />
           </div>
         </div>

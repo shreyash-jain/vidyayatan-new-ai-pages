@@ -97,6 +97,18 @@ const faqs = [
 ];
 
 const Faq = () => {
+  const [openItem, setOpenItem] = React.useState<string | undefined>(undefined);
+
+  const handleValueChange = (value: string | undefined) => {
+    setOpenItem(value);
+  };
+
+  // Test if Radix is working
+  React.useEffect(() => {
+    console.log('FAQ component mounted');
+    return () => console.log('FAQ component unmounted');
+  }, []);
+
   return (
     <section className="py-24 sm:py-32">
       <div className="container mx-auto px-4">
@@ -109,15 +121,26 @@ const Faq = () => {
           </p>
         </div>
         <div className="max-w-4xl mx-auto">
-          <Accordion type="single" collapsible className="w-full space-y-4">
+          <Accordion 
+            type="single" 
+            collapsible 
+            className="w-full space-y-4"
+            value={openItem}
+            onValueChange={handleValueChange}
+          >
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={`faq-${index}`}
                 value={`faq-${index}`}
                 className="bg-white border border-slate-200/80 rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden"
+                style={{ position: 'relative', zIndex: 1 }}
+                onClick={() => console.log(`AccordionItem ${index} clicked`)}
               >
-                <AccordionTrigger className="px-6 py-5 text-left font-semibold text-slate-800 hover:no-underline hover:bg-slate-50/50 transition-colors [&[data-state=open]]:bg-slate-50/50">
-                  <span className="text-base font-semibold">{faq.question}</span>
+                <AccordionTrigger 
+                  className="px-6 py-5 text-left font-semibold text-slate-800 hover:no-underline hover:bg-slate-50/50 transition-colors [&[data-state=open]]:bg-slate-50/50 w-full flex justify-between items-center"
+                  onClick={() => console.log(`FAQ ${index} trigger clicked: ${faq.question}`)}
+                >
+                  <span className="text-base font-semibold pr-4 flex-1">{faq.question}</span>
                 </AccordionTrigger>
                 <AccordionContent className="px-6 pb-6 pt-0 text-slate-600 text-base leading-relaxed">
                   {faq.answer}

@@ -252,3 +252,45 @@
   align-items: center;
   width: 100%;
 }
+
+/* Accordion Animations */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+.animate-accordion-down {
+  animation: accordion-down 0.2s ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 0.2s ease-out;
+}
+
+/* Accordion Interaction Fixes */
+[data-slot="accordion-trigger"] {
+  cursor: pointer;
+  user-select: none;
+}
+
+[data-slot="accordion-trigger"]:focus {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+[data-slot="accordion-item"] {
+  border: none !important;
+}

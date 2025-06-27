@@ -46,7 +46,7 @@ const HowItWorks = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900">
-            How Vidyayatan AI Works
+            How <span className="bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] bg-clip-text text-transparent">Vidyayatan AI</span> Works
           </h2>
           <p className="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
             From first contact to optimized results—here&rsquo;s how we bring AI to your business.
