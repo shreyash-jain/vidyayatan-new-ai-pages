@@ -97,7 +97,7 @@ const structuredData = {
   "@type": "Organization",
   "name": "Vidyayatan AI",
   "url": "https://ai.vidyayatan.com",
-  "logo": "https://ai.vidyayatan.com/assets/logos/vid new logo 1 2.svg",
+  "logo": "https://ai.vidyayatan.com/assets/logos/vid_new_logo.svg",
   "description": "Intelligent AI solutions for modern business automation and software development acceleration",
   "sameAs": [
     "https://linkedin.com/company/vidyayatan-ai",

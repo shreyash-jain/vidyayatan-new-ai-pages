@@ -101,7 +101,7 @@ export const organizationSchema = {
   '@type': 'Organization',
   name: siteConfig.name,
   url: siteConfig.url,
-  logo: `${siteConfig.url}/assets/logos/vid new logo 1 2.svg`,
+  logo: `${siteConfig.url}/assets/logos/vid_new_logo.svg`,
   description: siteConfig.description,
   sameAs: [
     'https://linkedin.com/company/vidyayatan-ai',

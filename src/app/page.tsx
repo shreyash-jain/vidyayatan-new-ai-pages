@@ -47,6 +47,49 @@ const trustedLogos = [
   "Frame 1000001027.png",
 ];
 
+const LoadingLogo = ({ logoName, index }: { logoName: string; index: number }) => {
+  const [isLoaded, setIsLoaded] = React.useState(false);
+  const [hasError, setHasError] = React.useState(false);
+  const [currentSrc, setCurrentSrc] = React.useState(`/assets/logos/${logoName}`);
+
+  const handleError = () => {
+    if (currentSrc.includes('assets/logos') && !currentSrc.includes('%20')) {
+      // Try URL encoded version
+      setCurrentSrc(`/assets/logos/${encodeURIComponent(logoName)}`);
+    } else if (currentSrc.includes('%20')) {
+      // Try without spaces (rename approach)
+      const noSpaceName = logoName.replace(/\s+/g, '');
+      setCurrentSrc(`/assets/logos/${noSpaceName}`);
+    } else {
+      // All attempts failed
+      setHasError(true);
+    }
+  };
+
+  if (hasError) {
+    return null; // Don't render anything if image can't load
+  }
+
+  return (
+    <img
+      key={index}
+      src={currentSrc}
+      alt={`Industry leader company logo - trusted partner of Vidyayatan AI`}
+      className="h-10 md:h-14 w-auto object-contain"
+      style={{ 
+        maxWidth: '112px', 
+        height: 'auto',
+        filter: 'grayscale(20%)',
+        opacity: isLoaded ? 1 : 0,
+        transition: 'opacity 0.3s ease'
+      }}
+      onLoad={() => setIsLoaded(true)}
+      onError={handleError}
+      loading="lazy"
+    />
+  );
+};
+
 const aiToolbox = [
   {
     category: "AI IDEs",
@@ -318,22 +361,7 @@ export default function Home() {
           </h2>
             <div className="flex gap-12 animate-scroll-infinite whitespace-nowrap" style={{ animation: 'scroll-infinite 30s linear infinite' }}>
               {trustedLogos.concat(trustedLogos).map((logo, idx) => (
-                <img
-                  key={idx}
-                  src={`/assets/logos/${logo}`}
-                  alt={`Industry leader company logo - trusted partner of Vidyayatan AI`}
-                  className="h-10 md:h-14 w-auto object-contain"
-                  style={{ 
-                    maxWidth: '112px', 
-                    height: 'auto',
-                    filter: 'grayscale(20%)'
-                  }}
-                  onError={(e) => {
-                    console.error(`Failed to load logo: ${logo}`);
-                    e.currentTarget.style.display = 'none';
-                  }}
-                  loading="lazy"
-                />
+                <LoadingLogo key={idx} logoName={logo} index={idx} />
               ))}
           </div>
         </div>

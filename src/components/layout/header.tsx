@@ -24,7 +24,7 @@ export const Header = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/assets/logos/vid new logo 1 2.svg"
+              src="/assets/logos/vid_new_logo.svg"
               alt="Vidyayatan Logo"
               width={32}
               height={32}
