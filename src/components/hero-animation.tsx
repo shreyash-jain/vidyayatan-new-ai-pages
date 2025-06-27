@@ -156,7 +156,7 @@ export const HeroAnimation: React.FC = () => {
                     transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
                 >
                     <p className="text-3xl md:text-5xl font-bold text-purple-700" style={{fontFamily: 'var(--font-space-grotesk)'}}>
-                        <AnimatedCounter to={10} />+
+                        <AnimatedCounter to={50} />+
                     </p>
                     <p className="text-sm md:text-md font-semibold text-gray-600 tracking-wider" style={{fontFamily: 'var(--font-lato)'}}>
                         HAPPY CLIENTS
