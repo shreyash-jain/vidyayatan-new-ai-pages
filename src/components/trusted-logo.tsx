@@ -20,7 +20,6 @@ export const TrustedLogo = ({
 }: TrustedLogoProps) => {
   const [imageError, setImageError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [useNextImage, setUseNextImage] = useState(true);
 
   // Test if the image is accessible before trying to load it
   useEffect(() => {
@@ -56,8 +55,8 @@ export const TrustedLogo = ({
         height={height}
         className={`${className} ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
         onError={() => {
-          console.error(`Next.js Image failed to load: ${src}, falling back to regular img`);
-          setUseNextImage(false);
+          console.error(`Next.js Image failed to load: ${src}`);
+          setImageError(true);
         }}
         onLoad={() => setIsLoading(false)}
         priority={false}
