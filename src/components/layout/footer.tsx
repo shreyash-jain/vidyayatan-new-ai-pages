@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Linkedin, Twitter, Github, Youtube, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { BookingDialog } from '../booking-dialog';
 
 const footerLinks = {
   company: [
@@ -85,15 +84,14 @@ export function Footer() {
               Join thousands using AI to supercharge their workflow.
             </p>
             <div className="mt-6">
-              <BookingDialog>
-                <button
-                  className="group w-full flex items-center justify-center gap-2 rounded-full px-6 py-3 font-medium text-white shadow-md text-sm whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
-                  style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
-                >
-                  <span>Book a meeting</span>
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </button>
-              </BookingDialog>
+              <Link
+                href="/booking"
+                className="group w-full flex items-center justify-center gap-2 rounded-full px-6 py-3 font-medium text-white shadow-md text-sm whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
+                style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
+              >
+                <span>Book a meeting</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
             </div>
             <div className="flex space-x-4 mt-6">
               {socialLinks.map((social, index) => {

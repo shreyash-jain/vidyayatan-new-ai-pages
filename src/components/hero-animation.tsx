@@ -47,7 +47,8 @@ const Avatar: React.FC<{
     employee: (typeof employees)[0];
     isActive: boolean;
     initialPos: { x: string, y: string };
-}> = ({ employee, isActive, initialPos }) => {
+    isMobile: boolean;
+}> = ({ employee, isActive, initialPos, isMobile }) => {
     const controls = useAnimation();
 
     useEffect(() => {
@@ -90,7 +91,11 @@ const Avatar: React.FC<{
                     alt="AI Employee" 
                     width={56} 
                     height={56} 
-                    className="w-14 h-14 md:w-[72px] md:h-[72px] rounded-full border-2 md:border-4 border-white shadow-xl" 
+                    className={`rounded-full border-2 md:border-4 border-white shadow-xl ${
+                        isMobile 
+                            ? (isActive ? 'w-14 h-14' : 'w-8 h-8') 
+                            : 'w-14 h-14 md:w-[72px] md:h-[72px]'
+                    }`}
                 />
                 <AnimatePresence>
                     {isActive && <Chip message={employee.message} />}
@@ -104,23 +109,32 @@ export const HeroAnimation: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
     const currentIndexRef = useRef(0);
     const [positions, setPositions] = useState<{x: string; y: string}[]>([]);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
+        const checkMobile = () => {
+            const mobile = window.innerWidth < 768;
+            setIsMobile(mobile);
+        };
+
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+
         setPositions(
             employees.map((_, index) => {
                 const isLeftSide = index < 3;
                 const xSideMultiplier = isLeftSide ? -1 : 1;
                 
                 // Responsive X positioning - smaller range on mobile
-                const isMobile = window.innerWidth < 768;
-                const xRange = isMobile ? 8 : 10; // Smaller range on mobile
-                const xBase = isMobile ? 15 : 18; // Closer to center on mobile
+                const mobile = window.innerWidth < 768;
+                const xRange = mobile ? 8 : 10; // Smaller range on mobile
+                const xBase = mobile ? 15 : 18; // Closer to center on mobile
                 const x = (Math.random() * xRange + xBase) * xSideMultiplier;
 
                 // Distribute Y vertically, more compactly
                 const yIndex = index % 3; // 0, 1, 2 for both sides
-                const yBase = (yIndex - 1) * (isMobile ? 12 : 18); // Smaller spread on mobile
-                const y = yBase + (Math.random() * (isMobile ? 4 : 8) - (isMobile ? 2 : 4)); // Less jitter on mobile
+                const yBase = (yIndex - 1) * (mobile ? 12 : 18); // Smaller spread on mobile
+                const y = yBase + (Math.random() * (mobile ? 4 : 8) - (mobile ? 2 : 4)); // Less jitter on mobile
 
                 return {
                     x: `${x}vw`,
@@ -139,7 +153,10 @@ export const HeroAnimation: React.FC = () => {
             currentIndexRef.current = (currentIndexRef.current + 1) % employees.length;
         }, 5000); // Switch avatar every 5s
 
-        return () => clearInterval(interval);
+        return () => {
+            clearInterval(interval);
+            window.removeEventListener('resize', checkMobile);
+        };
     }, []);
 
     if (positions.length === 0) {
@@ -148,9 +165,11 @@ export const HeroAnimation: React.FC = () => {
 
     return (
         <div className="absolute inset-0 w-full h-full pointer-events-none">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2 md:gap-4">
+            {/* Mobile layout: 50+ clients at top, then animations */}
+            <div className={`${isMobile ? 'flex flex-col' : 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2 md:gap-4'}`}>
+                {/* 50+ Clients section */}
                 <motion.div
-                    className="text-center"
+                    className={`text-center ${isMobile ? 'pt-8 pb-4' : ''}`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
@@ -162,24 +181,30 @@ export const HeroAnimation: React.FC = () => {
                         HAPPY CLIENTS
                     </p>
                 </motion.div>
-                <motion.div 
-                    className="flex items-center justify-center w-20 h-20 md:w-32 md:h-32 bg-gradient-to-br from-purple-100 to-violet-200 rounded-full shadow-2xl"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                >
-                    <Briefcase className="w-8 h-8 md:w-12 md:h-12 text-purple-600" />
-                </motion.div>
-            </div>
 
-            {employees.map((employee, index) => (
-                <Avatar 
-                    key={index} 
-                    employee={employee} 
-                    isActive={index === activeIndex} 
-                    initialPos={positions[index]}
-                />
-            ))}
+                {/* Animation section */}
+                <div className={`${isMobile ? 'relative flex-1 flex items-center justify-center' : ''}`}>
+                    <motion.div 
+                        className="flex items-center justify-center w-20 h-20 md:w-32 md:h-32 bg-purple-100 rounded-full shadow-2xl"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                    >
+                        <Briefcase className="w-8 h-8 md:w-12 md:h-12 text-purple-600" />
+                    </motion.div>
+
+                    {/* Avatars positioned around the logo */}
+                    {employees.map((employee, index) => (
+                        <Avatar 
+                            key={index} 
+                            employee={employee} 
+                            isActive={index === activeIndex} 
+                            initialPos={positions[index]}
+                            isMobile={isMobile}
+                        />
+                    ))}
+                </div>
+            </div>
         </div>
     );
 }; 

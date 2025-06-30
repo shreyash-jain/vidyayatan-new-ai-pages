@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { ArrowRight, Code, Zap, Bot, Paintbrush, BrainCircuit } from "lucide-react";
 import { motion } from "framer-motion";
@@ -11,7 +12,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import { BookingDialog } from "@/components/booking-dialog";
+
 // import { AiEmployeeCard } from "@/components/ai-employee-card";
 import Autoplay from "embla-carousel-autoplay"
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
@@ -297,7 +298,7 @@ export default function Home() {
   }, [useCaseApi])
 
   return (
-    <main className="relative w-full min-h-screen flex flex-col items-center bg-white overflow-hidden gradient-wave-bg">
+    <main className="relative w-full min-h-screen flex flex-col items-center bg-white overflow-hidden">
       <DecorativeCircles />
       <Header />
       {/* Hero Section */}
@@ -334,15 +335,29 @@ export default function Home() {
                   variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
                   className="mt-6 relative z-10"
               >
-                  <BookingDialog>
-                      <button
-                          className="group flex items-center justify-center gap-2 rounded-full px-8 py-3 font-medium text-white shadow-lg transition-all duration-300 text-base whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
-                          style={{ fontFamily: 'var(--font-lato)', fontWeight: 500, boxShadow: '0 4px 24px 0 rgba(160, 163, 232, 0.3)' }}
-                      >
-                          <span>Book Demo</span>
-                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      </button>
-                  </BookingDialog>
+                  <Link
+                      href="/booking"
+                      className="group flex items-center justify-center gap-2 rounded-full px-8 py-3 font-medium text-white shadow-lg transition-all duration-300 text-base whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
+                      style={{ fontFamily: 'var(--font-lato)', fontWeight: 500, boxShadow: '0 4px 24px 0 rgba(160, 163, 232, 0.3)' }}
+                  >
+                      <span>Book Demo</span>
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+              </motion.div>
+
+              {/* Trusted by Industry Leaders */}
+              <motion.div
+                  variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                  className="mt-12 relative z-10"
+              >
+                  <h2 className="text-sm md:text-base text-[#495057] font-bold mb-6 tracking-wide text-center" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                      Trusted by Industry Leaders
+                  </h2>
+                  <div className="flex gap-8 md:gap-12 justify-center items-center flex-wrap max-w-4xl mx-auto">
+                      {trustedLogos.slice(0, 6).map((logo, idx) => (
+                          <LoadingLogo key={idx} logoName={logo} index={idx} />
+                      ))}
+                  </div>
               </motion.div>
           </motion.div>
 
@@ -353,19 +368,7 @@ export default function Home() {
         </div>
     </section>
 
-      {/* Trusted by Section */}
-      <section className="relative z-10 w-full py-8 md:py-16" id="trusted-by" aria-label="Companies that trust Vidyayatan AI">
-        <div className="flex flex-col items-center">
-          <h2 className="text-base md:text-lg text-[#495057] font-bold mb-6 tracking-wide" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-            Trusted by Industry Leaders
-          </h2>
-            <div className="flex gap-12 animate-scroll-infinite whitespace-nowrap" style={{ animation: 'scroll-infinite 30s linear infinite' }}>
-              {trustedLogos.concat(trustedLogos).map((logo, idx) => (
-                <LoadingLogo key={idx} logoName={logo} index={idx} />
-              ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* Modern Problem & AI Solutions Section (Unified) */}
       <section className="w-full py-16 md:py-24 bg-slate-50" id="problems" aria-label="Business challenges we solve">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -26,6 +26,31 @@ export function BookingDialog({ children }: { children: React.ReactNode }) {
     email: "",
     phone: "" as string | undefined,
   });
+
+  // Prevent viewport changes from closing dialog on mobile
+  useEffect(() => {
+    if (isOpen) {
+      // Prevent body scroll when dialog is open
+      document.body.style.overflow = 'hidden';
+      
+      // Handle mobile viewport changes
+      const handleResize = () => {
+        // Keep dialog open during viewport changes (e.g., keyboard appearance)
+        if (isOpen) {
+          setIsOpen(true);
+        }
+      };
+      
+      window.addEventListener('resize', handleResize);
+      window.addEventListener('orientationchange', handleResize);
+      
+      return () => {
+        document.body.style.overflow = '';
+        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('orientationchange', handleResize);
+      };
+    }
+  }, [isOpen]);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
@@ -95,7 +120,13 @@ export function BookingDialog({ children }: { children: React.ReactNode }) {
   };
 
   const handleOpenChange = (open: boolean) => {
+    // Prevent accidental closing during form submission
+    if (!open && (isSubmitting || isSubmitted)) {
+      return;
+    }
+    
     setIsOpen(open);
+    
     if (!open) {
       // Reset form when dialog closes
       setFormData({ name: "", email: "", phone: undefined });
@@ -107,7 +138,7 @@ export function BookingDialog({ children }: { children: React.ReactNode }) {
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-white rounded-lg">
+      <DialogContent className="sm:max-w-[425px] bg-white rounded-lg max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle style={{ fontFamily: "var(--font-space-grotesk)" }}>
             {isSubmitted ? "Thank You!" : "Book a Meeting"}

@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Menu, X } from "lucide-react";
-import { BookingDialog } from "../booking-dialog";
 
 const navLinks = [
   { href: "#use-cases", label: "Use Cases" },
@@ -57,15 +56,14 @@ export const Header = () => {
           
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4 h-full">
-            <BookingDialog>
-              <button
-                className="group flex items-center justify-center gap-2 rounded-full px-6 py-2 font-medium text-white shadow-md text-sm whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
-                style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
-              >
-                <span>Talk to Sales</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </button>
-            </BookingDialog>
+            <Link
+              href="/booking"
+              className="group flex items-center justify-center gap-2 rounded-full px-6 py-2 font-medium text-white shadow-md text-sm whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
+              style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
+            >
+              <span>Talk to Sales</span>
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -103,16 +101,15 @@ export const Header = () => {
                   {item.label}
                 </Link>
               ))}
-              <BookingDialog>
-                <button
-                  className="group flex items-center justify-center gap-2 rounded-full px-8 py-4 font-medium text-white shadow-lg text-lg whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
-                  style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <span>Talk to Sales</span>
-                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                </button>
-              </BookingDialog>
+              <Link
+                href="/booking"
+                className="group flex items-center justify-center gap-2 rounded-full px-8 py-4 font-medium text-white shadow-lg text-lg whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
+                style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <span>Talk to Sales</span>
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </Link>
             </nav>
           </motion.div>
         )}
