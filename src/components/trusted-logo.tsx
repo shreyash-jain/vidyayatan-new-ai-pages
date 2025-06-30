@@ -36,27 +36,9 @@ export const TrustedLogo = ({
     testImage.src = src;
   }, [src]);
 
-  // If image failed to load or Next.js Image has issues, use regular img tag
-  if (imageError || !useNextImage) {
-    return (
-      <img
-        src={src}
-        alt={alt}
-        className={className}
-        onError={(e) => {
-          console.error(`Failed to load image: ${src}`);
-          // Hide the image if it fails to load
-          e.currentTarget.style.display = 'none';
-        }}
-        style={{ 
-          width: 'auto', 
-          height: '40px', 
-          maxWidth: '112px',
-          filter: 'grayscale(30%)',
-          display: imageError ? 'none' : 'block'
-        }}
-      />
-    );
+  // If image failed to load, don't render anything
+  if (imageError) {
+    return null;
   }
 
   return (

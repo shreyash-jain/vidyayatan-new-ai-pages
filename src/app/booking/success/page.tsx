@@ -38,7 +38,7 @@ export default function BookingSuccessPage() {
           </h1>
           
           <p className="text-lg text-gray-600 mb-8" style={{ fontFamily: 'var(--font-lato)' }}>
-            Thank you for your interest in transforming your business with AI. We've received your consultation request and our team is excited to work with you.
+            Thank you for your interest in transforming your business with AI. We&rsquo;ve received your consultation request and our team is excited to work with you.
           </p>
 
           {/* What Happens Next */}
@@ -57,7 +57,7 @@ export default function BookingSuccessPage() {
                     Email Confirmation (Within 5 minutes)
                   </h3>
                   <p className="text-gray-600 text-sm" style={{ fontFamily: 'var(--font-lato)' }}>
-                    Check your inbox for a confirmation email with booking details. Don't forget to check your spam folder!
+                                         Check your inbox for a confirmation email with booking details. Don&rsquo;t forget to check your spam folder!
                   </p>
                 </div>
               </div>
@@ -85,7 +85,7 @@ export default function BookingSuccessPage() {
                     Free AI Consultation (30 minutes)
                   </h3>
                   <p className="text-gray-600 text-sm" style={{ fontFamily: 'var(--font-lato)' }}>
-                    We'll discuss your business challenges and create a custom AI implementation roadmap.
+                                         We&rsquo;ll discuss your business challenges and create a custom AI implementation roadmap.
                   </p>
                 </div>
               </div>
@@ -95,7 +95,7 @@ export default function BookingSuccessPage() {
           {/* What We'll Cover */}
           <div className="bg-purple-50 rounded-lg p-6 mb-8 text-left">
             <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-              What We'll Cover in Your Consultation
+                             What We&rsquo;ll Cover in Your Consultation
             </h2>
             
             <ul className="space-y-2 text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>

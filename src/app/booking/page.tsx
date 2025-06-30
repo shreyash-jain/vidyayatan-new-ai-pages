@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -111,7 +111,7 @@ export default function BookingPage() {
               Book Your AI Consultation
             </h1>
             <p className="text-lg text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
-              Ready to transform your business with AI? Let's discuss how our AI employees can streamline your operations and boost productivity.
+              Ready to transform your business with AI? Let&rsquo;s discuss how our AI employees can streamline your operations and boost productivity.
             </p>
           </div>
 
@@ -197,7 +197,7 @@ export default function BookingPage() {
             {/* Benefits Section */}
             <div className="bg-purple-50 rounded-lg p-6 my-8">
               <h3 className="text-lg font-semibold text-gray-800 mb-4" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                What You'll Get:
+                What You&rsquo;ll Get:
               </h3>
               <ul className="space-y-2 text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
                 <li className="flex items-start gap-2">
@@ -246,7 +246,7 @@ export default function BookingPage() {
 
           {/* Footer Note */}
           <div className="mt-8 text-center text-sm text-gray-500" style={{ fontFamily: 'var(--font-lato)' }}>
-            <p>We'll contact you within 24 hours to schedule your consultation.</p>
+            <p>We&rsquo;ll contact you within 24 hours to schedule your consultation.</p>
             <p className="mt-1">Your information is secure and will never be shared.</p>
           </div>
         </div>
