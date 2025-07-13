@@ -56,4 +56,45 @@ SELECT
     DATE(created_at) as booking_date,
     TO_CHAR(created_at, 'YYYY-MM-DD HH24:MI:SS') as formatted_created_at
 FROM bookings
+ORDER BY created_at DESC;
+
+-- Create AI course creator waitlist table
+CREATE TABLE ai_course_creator_waitlist (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    email TEXT NOT NULL UNIQUE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
+    source TEXT DEFAULT 'website',
+    status TEXT DEFAULT 'pending',
+    notified_at TIMESTAMP WITH TIME ZONE NULL
+);
+
+-- Create an index on email for faster lookups
+CREATE INDEX idx_waitlist_email ON ai_course_creator_waitlist(email);
+
+-- Create an index on created_at for faster date range queries
+CREATE INDEX idx_waitlist_created_at ON ai_course_creator_waitlist(created_at);
+
+-- Enable Row Level Security (RLS)
+ALTER TABLE ai_course_creator_waitlist ENABLE ROW LEVEL SECURITY;
+
+-- Create a policy that allows inserting for all users (since we're using anon key)
+CREATE POLICY "Enable insert for all users" ON ai_course_creator_waitlist
+    FOR INSERT WITH CHECK (true);
+
+-- Create a policy that allows selecting for authenticated users only
+CREATE POLICY "Enable read access for authenticated users only" ON ai_course_creator_waitlist
+    FOR SELECT USING (auth.role() = 'authenticated');
+
+-- Create a view for easier querying with formatted dates
+CREATE VIEW waitlist_view AS
+SELECT 
+    id,
+    email,
+    created_at,
+    source,
+    status,
+    notified_at,
+    DATE(created_at) as signup_date,
+    TO_CHAR(created_at, 'YYYY-MM-DD HH24:MI:SS') as formatted_created_at
+FROM ai_course_creator_waitlist
 ORDER BY created_at DESC; 

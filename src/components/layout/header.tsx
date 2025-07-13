@@ -1,20 +1,32 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Menu, X } from "lucide-react";
 
-const navLinks = [
+const mainNavLinks = [
   { href: "#use-cases", label: "Use Cases" },
   { href: "#ai-employees", label: "AI Employees" },
+  { href: "/ai-course-creator", label: "AI Course Creator" },
   { href: "#contact", label: "Contact" },
+];
+
+const aiCourseNavLinks = [
+  { href: "/", label: "Home" },
+  { href: "/ai-course-creator", label: "AI Course Creator" },
+  { href: "/booking", label: "Contact" },
 ];
 
 export const Header = () => {
   const [hoveredPath, setHoveredPath] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+  
+  const isAiCoursePage = pathname === "/ai-course-creator";
+  const navLinks = isAiCoursePage ? aiCourseNavLinks : mainNavLinks;
 
   return (
     <>
@@ -56,14 +68,25 @@ export const Header = () => {
           
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4 h-full">
-            <Link
-              href="/booking"
-              className="group flex items-center justify-center gap-2 rounded-full px-6 py-2 font-medium text-white shadow-md text-sm whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
-              style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
-            >
-              <span>Talk to Sales</span>
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
+            {isAiCoursePage ? (
+              <button
+                onClick={() => document.getElementById('waitlist-form')?.scrollIntoView({ behavior: 'smooth' })}
+                className="group flex items-center justify-center gap-2 rounded-full px-6 py-2 font-medium text-white shadow-md text-sm whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
+                style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
+              >
+                <span>Join Waitlist</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </button>
+            ) : (
+              <Link
+                href="/booking"
+                className="group flex items-center justify-center gap-2 rounded-full px-6 py-2 font-medium text-white shadow-md text-sm whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
+                style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
+              >
+                <span>Talk to Sales</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -101,15 +124,29 @@ export const Header = () => {
                   {item.label}
                 </Link>
               ))}
-              <Link
-                href="/booking"
-                className="group flex items-center justify-center gap-2 rounded-full px-8 py-4 font-medium text-white shadow-lg text-lg whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
-                style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <span>Talk to Sales</span>
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Link>
+              {isAiCoursePage ? (
+                <button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    document.getElementById('waitlist-form')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="group flex items-center justify-center gap-2 rounded-full px-8 py-4 font-medium text-white shadow-lg text-lg whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
+                  style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
+                >
+                  <span>Join Waitlist</span>
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </button>
+              ) : (
+                <Link
+                  href="/booking"
+                  className="group flex items-center justify-center gap-2 rounded-full px-8 py-4 font-medium text-white shadow-lg text-lg whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
+                  style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <span>Talk to Sales</span>
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </Link>
+              )}
             </nav>
           </motion.div>
         )}

@@ -1,6 +1,7 @@
 import { Footer } from "@/components/layout/footer";
 import type { Metadata } from "next";
 import { Montserrat_Alternates, Lato, Space_Grotesk } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const montserrat = Montserrat_Alternates({
@@ -157,6 +158,7 @@ export default function RootLayout({
       >
         {children}
         <Footer />
+        <Toaster />
       </body>
     </html>
   );
