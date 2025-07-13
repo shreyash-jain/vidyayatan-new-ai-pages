@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { Resend } from 'resend';
 
+export const runtime = 'edge';
+
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 function createWaitlistNotificationEmail(email: string) {
