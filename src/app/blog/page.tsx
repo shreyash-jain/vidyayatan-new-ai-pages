@@ -39,6 +39,17 @@ export default function BlogIndexPage() {
       tags: ["Live Sessions", "Automation", "Scaling", "HABUILD"],
       publishedDate: "2024-01-25",
       featured: true
+    },
+    {
+      slug: "lead_funnel",
+      title: "Stop Losing Leads: The 50% Conversion Funnel",
+      subtitle: "HABUILD's Lead Management Revolution",
+      description: "Discover how HABUILD transformed scattered leads into a 50% conversion machine with automated nurturing, demo programs, and intelligent sales support that turns trial users into paying members.",
+      readTime: "9 min read",
+      category: "Conversion",
+      tags: ["Lead Funnel", "Conversion", "Sales", "HABUILD"],
+      publishedDate: "2024-01-30",
+      featured: true
     }
     // Future blog posts can be added here
   ];

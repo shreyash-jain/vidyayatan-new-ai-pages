@@ -68,7 +68,7 @@ export const metadata: Metadata = {
         alt: "HABUILD Live Session Automation - Fitness Virtual Class Management",
       },
     ],
-    publishedTime: new Date().toISOString(),
+    publishedTime: "2024-01-25T00:00:00.000Z",
     tags: [
       "Live Session Management", 
       "Fitness Technology", 
@@ -115,8 +115,8 @@ const liveSessionArticleStructuredData = {
       "url": "https://lms.vacademy.io/assets/vacademy/vacademy_logo.png"
     }
   },
-  "datePublished": new Date().toISOString(),
-  "dateModified": new Date().toISOString(),
+  "datePublished": "2024-01-25T00:00:00.000Z",
+  "dateModified": "2024-01-25T00:00:00.000Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://lms.vacademy.io/blog/live_sessions"

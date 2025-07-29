@@ -69,7 +69,7 @@ export const metadata: Metadata = {
         alt: "HABUILD 10x Growth Case Study - Fitness Business Automation Success",
       },
     ],
-    publishedTime: new Date().toISOString(),
+    publishedTime: "2024-01-15T00:00:00.000Z",
     tags: [
       "Fitness Business", 
       "Yoga Studio Management", 
@@ -116,8 +116,8 @@ const fitnessArticleStructuredData = {
       "url": "https://lms.vacademy.io/assets/vacademy/vacademy_logo.png"
     }
   },
-  "datePublished": new Date().toISOString(),
-  "dateModified": new Date().toISOString(),
+  "datePublished": "2024-01-15T00:00:00.000Z",
+  "dateModified": "2024-01-15T00:00:00.000Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://lms.vacademy.io/blog/10x_growth"

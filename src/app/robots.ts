@@ -21,6 +21,7 @@ export default function robots(): MetadataRoute.Robots {
           '/blog/10x_growth',
           '/blog/referral_system',
           '/blog/live_sessions',
+          '/blog/lead_funnel',
         ],
         disallow: [
           '/api/',

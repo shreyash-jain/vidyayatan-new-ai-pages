@@ -68,7 +68,7 @@ export const metadata: Metadata = {
         alt: "HABUILD Referral System Case Study - Fitness Member Advocacy Program",
       },
     ],
-    publishedTime: new Date().toISOString(),
+    publishedTime: "2024-01-20T00:00:00.000Z",
     tags: [
       "Referral Marketing", 
       "Fitness Business", 
@@ -115,8 +115,8 @@ const referralArticleStructuredData = {
       "url": "https://lms.vacademy.io/assets/vacademy/vacademy_logo.png"
     }
   },
-  "datePublished": new Date().toISOString(),
-  "dateModified": new Date().toISOString(),
+  "datePublished": "2024-01-20T00:00:00.000Z",
+  "dateModified": "2024-01-20T00:00:00.000Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://lms.vacademy.io/blog/referral_system"

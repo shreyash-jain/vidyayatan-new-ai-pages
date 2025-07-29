@@ -99,7 +99,7 @@ const blogStructuredData = {
       "@type": "BlogPosting",
       "headline": "From Google Sheets to Growth Machine: How HABUILD Automated Fitness Business Operations for 10x Growth",
       "url": "https://lms.vacademy.io/blog/10x_growth",
-      "datePublished": new Date().toISOString(),
+      "datePublished": "2024-01-15T00:00:00.000Z",
       "author": {
         "@type": "Organization",
         "name": "Vacademy"
@@ -110,7 +110,7 @@ const blogStructuredData = {
       "@type": "BlogPosting",
       "headline": "The Referral System That Turned HABUILD&apos;s Members into a Sales Force",
       "url": "https://lms.vacademy.io/blog/referral_system",
-      "datePublished": new Date().toISOString(),
+      "datePublished": "2024-01-20T00:00:00.000Z",
       "author": {
         "@type": "Organization",
         "name": "Vacademy"
@@ -121,12 +121,23 @@ const blogStructuredData = {
       "@type": "BlogPosting",
       "headline": "Never Send a Manual Zoom Link Again: Scaling Live Sessions for 10,000+ Users",
       "url": "https://lms.vacademy.io/blog/live_sessions",
-      "datePublished": new Date().toISOString(),
+      "datePublished": "2024-01-25T00:00:00.000Z",
       "author": {
         "@type": "Organization",
         "name": "Vacademy"
       },
       "description": "How HABUILD automated live session management to scale virtual classes to 20 Lakh users"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "Stop Losing Leads: The Funnel That Converted 50% of HABUILD's Trial Users",
+      "url": "https://lms.vacademy.io/blog/lead_funnel",
+      "datePublished": "2024-01-30T00:00:00.000Z",
+      "author": {
+        "@type": "Organization",
+        "name": "Vacademy"
+      },
+      "description": "How HABUILD built a lead conversion machine that turns 50% of trial users into paying members"
     }
   ],
   "about": [

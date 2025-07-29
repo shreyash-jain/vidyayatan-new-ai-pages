@@ -34,6 +34,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: 'monthly',
         priority: 0.9,
       },
+      {
+        url: `${baseUrl}/blog/lead_funnel`,
+        lastModified: currentDate,
+        changeFrequency: 'monthly',
+        priority: 0.9,
+      },
     ];
   }
   
@@ -77,6 +83,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/ai-course-creator`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/yoga`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.8,
