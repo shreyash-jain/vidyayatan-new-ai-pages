@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,13 +20,35 @@ const aiCourseNavLinks = [
   { href: "/booking", label: "Contact" },
 ];
 
+const yogaNavLinks = [
+  { href: "#features", label: "Features" },
+  { href: "#pricing", label: "Pricing" },
+  { href: "#contact", label: "Contact Us" },
+];
+
 export const Header = () => {
   const [hoveredPath, setHoveredPath] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   
   const isAiCoursePage = pathname === "/ai-course-creator";
-  const navLinks = isAiCoursePage ? aiCourseNavLinks : mainNavLinks;
+  const isYogaPage = pathname === "/yoga";
+  const navLinks = isAiCoursePage ? aiCourseNavLinks : isYogaPage ? yogaNavLinks : mainNavLinks;
+
+  // Handle scroll effect for yoga page
+  useEffect(() => {
+    if (!isYogaPage) return;
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const heroHeight = window.innerHeight; // Hero section is 100vh
+      setIsScrolled(scrollPosition > heroHeight * 0.8); // Change color when 80% past hero
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isYogaPage]);
 
   return (
     <>
@@ -51,13 +73,23 @@ export const Header = () => {
               <Link
                 key={item.href}
                 href={item.href}
-                className="relative px-4 py-2 text-base font-normal text-gray-600 transition-colors hover:text-purple-800"
+                className={`relative px-4 py-2 text-base font-semibold transition-all duration-300 ${
+                  isYogaPage 
+                    ? isScrolled 
+                      ? 'text-gray-800 hover:text-[#ED7424]' 
+                      : 'text-white hover:text-[#ED7424]'
+                    : 'text-gray-600 hover:text-purple-800'
+                }`}
                 onMouseEnter={() => setHoveredPath(item.href)}
               >
                 <span>{item.label}</span>
                 {item.href === hoveredPath && (
                   <motion.div
-                    className="absolute inset-0 -z-10 bg-purple-100/60 rounded-full"
+                    className={`absolute inset-0 -z-10 rounded-full ${
+                      isYogaPage 
+                        ? 'bg-[#ED7424]/10' 
+                        : 'bg-purple-100/60'
+                    }`}
                     layoutId="hover-bg"
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   />
@@ -77,6 +109,15 @@ export const Header = () => {
                 <span>Join Waitlist</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
+            ) : isYogaPage ? (
+              <Link
+                href="/booking"
+                className="group flex items-center justify-center gap-2 rounded-full px-6 py-2 font-medium text-white shadow-md text-sm whitespace-nowrap bg-gradient-to-r from-[#ED7424] to-[#F19146] hover:from-[#F19146] hover:to-[#ED7424]"
+                style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
+              >
+                <span>Start Free Trial</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
             ) : (
               <Link
                 href="/booking"
@@ -118,7 +159,13 @@ export const Header = () => {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-2xl font-semibold text-gray-700"
+                  className={`text-2xl font-bold transition-colors duration-300 ${
+                    isYogaPage 
+                      ? isScrolled 
+                        ? 'text-gray-800 hover:text-[#ED7424]' 
+                        : 'text-white hover:text-[#ED7424]'
+                      : 'text-gray-700 hover:text-purple-800'
+                  }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
@@ -136,6 +183,16 @@ export const Header = () => {
                   <span>Join Waitlist</span>
                   <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </button>
+              ) : isYogaPage ? (
+                <Link
+                  href="/booking"
+                  className="group flex items-center justify-center gap-2 rounded-full px-8 py-4 font-medium text-white shadow-lg text-lg whitespace-nowrap bg-gradient-to-r from-[#ED7424] to-[#F19146] hover:from-[#F19146] hover:to-[#ED7424]"
+                  style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <span>Start Free Trial</span>
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </Link>
               ) : (
                 <Link
                   href="/booking"

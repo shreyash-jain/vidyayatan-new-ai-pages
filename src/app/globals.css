@@ -294,3 +294,99 @@
 [data-slot="accordion-item"] {
   border: none !important;
 }
+
+/* Hide scrollbar for webkit browsers */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+/* Enable text selection across the website */
+* {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Ensure buttons and interactive elements remain clickable */
+button,
+input,
+textarea,
+select,
+[role="button"],
+[role="tab"],
+[role="menuitem"],
+[role="option"] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection in buttons that contain text */
+button:not([type="button"]):not([type="submit"]):not([type="reset"]),
+.btn,
+.btn-primary,
+.btn-secondary {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Ensure form inputs allow text selection */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+input[type="tel"],
+input[type="number"],
+textarea {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Allow text selection in navigation links */
+nav a,
+.nav-link,
+.nav-item a {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Ensure headings and paragraphs are selectable */
+h1, h2, h3, h4, h5, h6,
+p, span, div, article, section {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Allow text selection in testimonials and quotes */
+blockquote,
+.testimonial,
+.quote {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Ensure list items are selectable */
+li, ul, ol {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}

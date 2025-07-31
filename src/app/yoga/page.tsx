@@ -9,427 +9,1582 @@ import {
   Video, 
   DollarSign, 
   Heart, 
-  Brain, 
-  BarChart3,
-  Palette,
   Zap,
-  MessageCircle,
   Smartphone,
   Monitor,
   Activity,
   Target,
   TrendingUp,
   Award,
-  Sparkles,
-  Play,
   Calendar,
-  Wifi
+  Star,
+  CheckCircle,
+  CreditCard,
+  ChevronLeft, 
+  ChevronRight,
+  FileText,
+  Bell,
+  RefreshCw,
+  BookOpen,
+  BarChart
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { DecorativeCircles } from "@/components/ui/decorative-circles";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const benefitFeatures = [
+
+
+
+
+const testimonials = [
   {
-    icon: <Users className="h-8 w-8 text-purple-400" />,
-    title: "Effortless Member Management & Payments",
-    subtitle: "Focus on Teaching, Not Online Admin",
-    description: "Automate all touch points from registration forms to restarting memberships, effortlessly handling payments, discounts, and coupons using any or many payment gateways. Spend less time chasing online payments and more time perfecting your poses. Vacademy handles all online registrations, renewals, and payments automatically, offering flexible options like recurring subscriptions for ongoing classes, one-time payments for specialized online programs, or package deals for bundled virtual offerings.",
+    name: "Sarah Johnson",
+    role: "Online Yoga Studio Owner",
+    content: "The video quality and branding options on Vacademy are incredible. My students feel like they&apos;re getting a premium experience, and the flexible payment models work perfectly for my yoga subscription business.",
+    rating: 5,
+    avatar: "/assets/employees/riley.png"
   },
   {
-    icon: <Video className="h-8 w-8 text-purple-400" />,
-    title: "Seamless Live & Recorded Session Delivery",
-    subtitle: "Provide a Professional, Engaging Online Experience Every Time",
-    description: "Effortlessly go Live with unique join links for each user, planning sessions with YouTube, Zoom, or Meet links, and even showing recorded sessions as live. The platform automatically marks member attendance for your online classes. Deliver your high-quality video workouts and live stream classes effortlessly, ensuring consistent engagement and a professional look for your online offerings.",
+    name: "Michael Chen",
+    role: "Fitness Bootcamp Creator",
+    content: "Managing live vs. on-demand content was always a challenge until I found Vacademy. The platform handles everything seamlessly, and my community engagement has increased by 60%.",
+    rating: 5,
+    avatar: "/assets/employees/atlas.png"
   },
   {
-    icon: <Zap className="h-8 w-8 text-purple-400" />,
-    title: "Amplify Your Online Reach with Automated Referrals",
-    subtitle: "Grow Your Digital Community Organically and Convert More Leads",
-    description: "Turn your happy online members into powerful advocates! Run fully customized referral programs with unique links for each user, choosing what referees get from membership days to tangible gifts. You can even run leaderboard campaigns and allow users to collect points. Create a perfect user funnel by integrating all lead sources, from ads APIs to offline entries, and enrich leads with free demo programs, webinars, and events.",
-  },
-  {
-    icon: <MessageCircle className="h-8 w-8 text-purple-400" />,
-    title: "Deep Community Engagement & Personalization",
-    subtitle: "Build a Loyal, Thriving Online Community and Keep Members Motivated Remotely",
-    description: "Engage with your online community by sending hyper-personalized DMs on WhatsApp and email, and automated motivation messages. Cultivate a strong, supportive digital environment where students can share progress, offer encouragement, and build camaraderie, enhancing retention and loyalty on their fitness and wellness journeys, even when learning remotely.",
-  },
-  {
-    icon: <Brain className="h-8 w-8 text-purple-400" />,
-    title: "Intelligent AI for Personalized Experiences",
-    subtitle: "Deliver a Truly Unique and Adaptive Online Experience While Saving Time",
-    description: "Leverage cutting-edge AI to offer AI-powered workout recommendations tailored to individual progress, generate personalized meal plans, or suggest adaptive yoga flows based on user preferences and physical capabilities. Furthermore, AI tools can assist in generating compelling marketing content for new online classes, virtual workshops, or membership drives, saving you significant time and resources for your digital content creation.",
-  },
-  {
-    icon: <BarChart3 className="h-8 w-8 text-purple-400" />,
-    title: "Insights for Informed Online Growth",
-    subtitle: "Make Data-Driven Decisions to Optimize Your Virtual Offerings and Boost Retention",
-    description: "Monitor student engagement with online content, attendance in live virtual sessions, and completion of self-paced modules. Our robust analytics and activity tracking provide critical data for understanding student engagement and optimizing course effectiveness for your online programs. Gain invaluable insights to tailor your online programs, facilitate personalized feedback, enhance student motivation, and boost retention with data-driven adjustments.",
-  },
-  {
-    icon: <Palette className="h-8 w-8 text-purple-400" />,
-    title: "Your Brand, Your Way",
-    subtitle: "Establish a Strong, Professional Online Presence that Truly Reflects Your Unique Brand",
-    description: "The platform allows individual instructors to fully customize the online environment to reflect their unique brand identity. This ensures a seamless, branded user experience across devices. From your professional website to the intuitive student app, build trust and differentiate your online offerings in a competitive market.",
-  },
+    name: "Emma Rodriguez",
+    role: "Healthy Cooking Instructor",
+    content: "The branded experience and community features have transformed my online cooking classes. Students love the personalized approach, and I can focus on creating amazing content instead of managing tech.",
+    rating: 5,
+    avatar: "/assets/employees/nova.png"
+  }
 ];
 
-const stats = [
-  { value: "2 Lakh+", label: "Members Grown", description: "From 300 to 2 Lakh in 10 months", icon: <TrendingUp className="h-8 w-8" /> },
-  { value: "50%", label: "Lead Conversion", description: "Increase in conversion rates", icon: <Target className="h-8 w-8" /> },
-  { value: "40%", label: "Retention Boost", description: "Higher student retention", icon: <Heart className="h-8 w-8" /> },
-  { value: "70%", label: "Cost Reduction", description: "In operational overhead", icon: <Award className="h-8 w-8" /> },
-];
+
+
+  // Hero slides data
+  const heroSlides = [
+    {
+      id: 1,
+      title: "Grow your wellness academy",
+      subtitle: "Launch and scale your classes from one platform",
+      cta: "Start Now",
+      ctaLink: "#",
+      backgroundImage: "/assets/yoga/hero-image-1.jpg"
+    },
+    {
+      id: 2,
+      title: "Your branded platform",
+      subtitle: "Build a digital home that reflects your identity",
+      cta: "Book a Demo",
+      ctaLink: "/booking",
+      backgroundImage: "/assets/yoga/hero-image-2.jpg"
+    },
+    {
+      id: 3,
+      title: "Made for wellness trainers",
+      subtitle: "Deliver content and build thriving communities",
+      cta: "Explore Features",
+      ctaLink: "#features",
+      backgroundImage: "/assets/yoga/hero-image-3.jpg"
+    }
+  ];
 
 export default function YogaPage() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  // Auto-slide functionality
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
+
+  // Pause auto-play on hover
+  const handleMouseEnter = () => setIsAutoPlaying(false);
+  const handleMouseLeave = () => setIsAutoPlaying(true);
+
+  // Manual navigation
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+    setIsAutoPlaying(false);
+    // Resume auto-play after manual interaction
+    setTimeout(() => setIsAutoPlaying(true), 10000);
+  };
+
+  const nextSlide = () => {
+    goToSlide((currentSlide + 1) % heroSlides.length);
+  };
+
+  const prevSlide = () => {
+    goToSlide((currentSlide - 1 + heroSlides.length) % heroSlides.length);
+  };
+
   return (
     <main className="relative w-full min-h-screen flex flex-col items-center bg-white overflow-hidden">
       <DecorativeCircles />
       <Header />
       
-      {/* Hero Section */}
-      <section className="w-full pt-32 md:pt-44 pb-16" id="home">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center gap-8">
+      {/* Full-Screen Dynamic Hero Section */}
+      <section 
+        className="relative h-screen w-full overflow-hidden"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {/* Background Slides */}
+        <AnimatePresence mode="wait">
           <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0, y: -20 },
-              visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.2, duration: 0.5 } }
-            }}
-            className="flex flex-col items-center"
+            key={currentSlide}
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1, ease: "easeInOut" }}
           >
+            <Image
+              src={heroSlides[currentSlide].backgroundImage}
+              alt={heroSlides[currentSlide].title}
+              fill
+              className="object-cover"
+              priority
+            />
+            {/* Gradient overlay - darker on left, lighter on right */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Content */}
+        <div className="relative z-10 h-full flex items-end">
+          <div className="max-w-4xl px-4 sm:px-8 md:px-12 lg:px-16 pb-12 sm:pb-16 md:pb-20">
+            <AnimatePresence mode="wait">
+                                          <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="space-y-3"
+              >
+                {/* Hero Heading */}
             <motion.h1
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="text-4xl sm:text-5xl md:text-6xl font-bold max-w-5xl leading-tight"
-              style={{ color: "#495057", fontFamily: 'var(--font-space-grotesk)' }}
-            >
-              Empower Your Online 
-              <span className="bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] bg-clip-text text-transparent"> Yoga & Fitness </span>
-              Business: Automate, Grow, and Thrive with Vacademy!
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight"
+                  style={{ fontFamily: 'var(--font-space-grotesk)' }}
+                >
+                  {heroSlides[currentSlide].title}
             </motion.h1>
             
+                {/* Subtext */}
             <motion.p
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="text-base md:text-lg max-w-4xl mt-6 leading-relaxed"
-              style={{ color: "#495057", fontFamily: 'var(--font-lato)' }}
-            >
-              Are you a passionate yoga or fitness instructor trying to manage your online classes with endless spreadsheets, DMs for sign-ups, and fragmented payment apps? Imagine reclaiming hours each week, expanding your online reach, and truly focusing on what you love: teaching and transforming lives from anywhere.
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 max-w-lg sm:max-w-xl leading-relaxed"
+                  style={{ fontFamily: 'var(--font-lato)' }}
+                >
+                  {heroSlides[currentSlide].subtitle}
             </motion.p>
 
-            <motion.p
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="text-base md:text-lg max-w-4xl mt-4 leading-relaxed"
-              style={{ color: "#495057", fontFamily: 'var(--font-lato)' }}
-            >
-              <strong>Vacademy</strong> is your all-in-one Learner and Trainer Management software, designed to simplify your entire online operation, from managing remote members and online payments to delivering seamless live sessions and engaging your digital community.
-            </motion.p>
-            
+                {/* CTA Button */}
             <motion.div
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="mt-8 flex flex-col sm:flex-row gap-4 relative z-10"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                  className="pt-1"
             >
               <Link
-                href="/booking"
-                className="group flex items-center justify-center gap-2 rounded-full px-8 py-3 font-medium text-white shadow-lg transition-all duration-300 text-base whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
-                style={{ fontFamily: 'var(--font-lato)', fontWeight: 500, boxShadow: '0 4px 24px 0 rgba(160, 163, 232, 0.3)' }}
-              >
-                <span>Launch Your Online Academy Today!</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    href={heroSlides[currentSlide].ctaLink}
+                    className="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-[#ED7424] to-[#F19146] text-white font-semibold text-sm sm:text-base rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+                    style={{ fontFamily: 'var(--font-space-grotesk)' }}
+                  >
+                    {heroSlides[currentSlide].cta}
+                    <ChevronRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
               </Link>
-              
-              <Link
-                href="/booking"
-                className="group flex items-center justify-center gap-2 rounded-full px-8 py-3 font-medium transition-all duration-300 text-base whitespace-nowrap border-2 border-[#a0a3e8] text-[#a0a3e8] hover:bg-[#a0a3e8] hover:text-white"
-                style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
-              >
-                <span>Request a Personalized Demo</span>
-              </Link>
-            </motion.div>
-          </motion.div>
+                </motion.div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
 
-          {/* Hero Visual Elements */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="relative mt-16 max-w-4xl mx-auto"
+        {/* Navigation Arrows */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all duration-300"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="h-4 w-4 sm:h-6 sm:w-6" />
+        </button>
+
+        <button
+          onClick={nextSlide}
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all duration-300"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="h-4 w-4 sm:h-6 sm:w-6" />
+        </button>
+
+
+      </section>
+
+      {/* Find What Moves You Section */}
+      <section className="w-full py-12 md:py-16 bg-gradient-to-br from-[#FFF9F4] to-[#FDEDD7]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="mb-8">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 text-left"
+              style={{ color: "#1E1E1E", fontFamily: 'var(--font-space-grotesk)' }}
+            >
+              Journey to Your Best Self
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-base md:text-lg text-gray-600 max-w-2xl leading-relaxed"
+              style={{ fontFamily: 'var(--font-lato)' }}
+            >
+              Curated ways to help your audience feel better, move more, and stay consistent.
+            </motion.p>
+          </div>
+
+          {/* Cards Grid with Show More Functionality */}
+          <div className="relative">
+            {/* Navigation Buttons - Top Right */}
+            <div className="flex justify-end mb-4">
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => {
+                    const container = document.getElementById('scroll-container');
+                    if (container) {
+                      container.scrollBy({ left: -350, behavior: 'smooth' });
+                    }
+                  }}
+                  className="w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-white hover:shadow-xl transition-all duration-300"
+                  aria-label="Scroll left"
+                >
+                  <ChevronLeft className="h-5 w-5 text-[#ED7424]" />
+                </button>
+                
+                <button 
+                  onClick={() => {
+                    const container = document.getElementById('scroll-container');
+                    if (container) {
+                      container.scrollBy({ left: 350, behavior: 'smooth' });
+                    }
+                  }}
+                  className="w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full shadow-lg border border-gray-200 flex items-center justify-center hover:bg-white hover:shadow-xl transition-all duration-300"
+                  aria-label="Scroll right"
+                >
+                  <ChevronRight className="h-5 w-5 text-[#ED7424]" />
+                </button>
+              </div>
+            </div>
+
+                        {/* Cards Horizontal Scroll Container */}
+            <div 
+              id="scroll-container"
+              className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth pb-4 pr-[160px] md:pr-[192px]"
+              style={{ 
+                scrollSnapType: 'x mandatory'
+              }}
+            >
+              {/* Live Sessions Card */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="flex-shrink-0 w-80 md:w-96 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                style={{ scrollSnapAlign: 'start' }}
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <Image 
+                    src="/assets/yoga/live-sessions.jpg" 
+                    alt="Live yoga sessions" 
+                    fill 
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-xl text-white shadow-lg">
+                      <Video className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-xl font-bold" style={{ color: "#1E1E1E", fontFamily: 'var(--font-space-grotesk)' }}>
+                      Live Sessions
+                    </h3>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+                    Host real-time yoga classes with ease — connect with your clients through secure and high-quality video sessions.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Class Scheduling Card */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="flex-shrink-0 w-80 md:w-96 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                style={{ scrollSnapAlign: 'start' }}
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <Image 
+                    src="/assets/yoga/class-scheduling.jpg" 
+                    alt="Class scheduling and calendar" 
+                    fill 
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-xl text-white shadow-lg">
+                      <Calendar className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-xl font-bold" style={{ color: "#1E1E1E", fontFamily: 'var(--font-space-grotesk)' }}>
+                      Class Scheduling
+                    </h3>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+                    Set your weekly calendar, allow clients to book sessions, and manage your time effortlessly with built-in smart scheduling.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Pre-recorded Video Library Card */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="flex-shrink-0 w-80 md:w-96 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                style={{ scrollSnapAlign: 'start' }}
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <Image 
+                    src="/assets/yoga/pre-recorded.jpg" 
+                    alt="Video library and content" 
+                    fill 
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-xl text-white shadow-lg">
+                      <BookOpen className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-xl font-bold" style={{ color: "#1E1E1E", fontFamily: 'var(--font-space-grotesk)' }}>
+                      Pre-recorded Video Library
+                    </h3>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+                    Upload and organize your yoga content — offer flexibility with on-demand videos your clients can access anytime.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Client Progress Tracking Card */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="flex-shrink-0 w-80 md:w-96 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                style={{ scrollSnapAlign: 'start' }}
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <Image 
+                    src="/assets/yoga/client-progress.jpg" 
+                    alt="Progress tracking and analytics" 
+                    fill 
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-xl text-white shadow-lg">
+                      <BarChart className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-xl font-bold" style={{ color: "#1E1E1E", fontFamily: 'var(--font-space-grotesk)' }}>
+                      Client Progress Tracking
+                    </h3>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+                    Monitor each client&apos;s journey — track attendance, improvements, and milestones over time to personalize sessions.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Automated Reminders & Notifications Card */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="flex-shrink-0 w-80 md:w-96 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                style={{ scrollSnapAlign: 'start' }}
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <Image 
+                    src="/assets/yoga/reminder.jpg" 
+                    alt="Automated notifications and reminders" 
+                    fill 
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-xl text-white shadow-lg">
+                      <Bell className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-xl font-bold" style={{ color: "#1E1E1E", fontFamily: 'var(--font-space-grotesk)' }}>
+                      Automated Reminders & Notifications
+                    </h3>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+                    Reduce no-shows with timely session reminders and post-class feedback prompts — all sent automatically.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Payments & Plans Card */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="flex-shrink-0 w-80 md:w-96 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                style={{ scrollSnapAlign: 'start' }}
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <Image 
+                    src="/assets/yoga/payment-plan.jpg" 
+                    alt="Payments and subscription plans" 
+                    fill 
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-xl text-white shadow-lg">
+                      <CreditCard className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-xl font-bold" style={{ color: "#1E1E1E", fontFamily: 'var(--font-space-grotesk)' }}>
+                      Payments & Plans
+                    </h3>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+                    Set your rates, offer subscriptions or one-time sessions, and receive payments directly in your account — stress-free.
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Habuild Success Story Section */}
+      <section className="w-full py-12 md:py-16 bg-white" id="habuild-success">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8"
+            style={{ color: "#2D3748", fontFamily: 'var(--font-space-grotesk)' }}
           >
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-center">
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                className="glass-card p-6 rounded-xl text-center"
-              >
-                <Activity className="h-12 w-12 text-white mx-auto mb-2" />
-                <p className="text-white/90 text-sm" style={{ fontFamily: 'var(--font-lato)' }}>Live Sessions</p>
-              </motion.div>
-              
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: -5 }}
-                className="glass-card p-6 rounded-xl text-center"
-              >
-                <Users className="h-12 w-12 text-white mx-auto mb-2" />
-                <p className="text-white/90 text-sm" style={{ fontFamily: 'var(--font-lato)' }}>Community</p>
-              </motion.div>
-              
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                className="glass-card p-6 rounded-xl text-center"
-              >
-                <Target className="h-12 w-12 text-white mx-auto mb-2" />
-                <p className="text-white/90 text-sm" style={{ fontFamily: 'var(--font-lato)' }}>Goal Tracking</p>
-              </motion.div>
-              
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: -5 }}
-                className="glass-card p-6 rounded-xl text-center"
-              >
-                <Sparkles className="h-12 w-12 text-white mx-auto mb-2" />
-                <p className="text-white/90 text-sm" style={{ fontFamily: 'var(--font-lato)' }}>AI Powered</p>
-              </motion.div>
+            How brands like <span className="bg-gradient-to-r from-[#ED7424] to-[#F19146] bg-clip-text text-transparent">Habuild</span> scale impact with Vacademy
+          </motion.h2>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="md:w-1/3 flex-shrink-0">
+                <Image
+                  src="/assets/yoga/habuild.png"
+                  alt="Habuild Yoga - Daily live sessions for thousands of learners"
+                  width={300}
+                  height={200}
+                  className="w-full h-48 md:h-64 object-contain"
+                />
+              </div>
+              <div className="md:w-2/3 text-left">
+                <h3 className="text-2xl font-bold mb-4" style={{ color: "#2D3748", fontFamily: 'var(--font-space-grotesk)' }}>
+                  Habuild Yoga
+                </h3>
+                <p className="text-gray-700 mb-6 leading-relaxed text-lg" style={{ fontFamily: 'var(--font-lato)' }}>
+                  When Habuild wanted to inspire thousands to build a consistent yoga habit, they turned to Vacademy. 
+                  With our platform, they now host daily live sessions for over 20,000 learners, offer progress tracking, and run scalable 21-day challenges — all under their own brand.
+                </p>
+                <blockquote className="text-gray-800 italic mb-6 text-lg border-l-4 border-[#ED7424] pl-4" style={{ fontFamily: 'var(--font-lato)' }}>
+                  &ldquo;Vacademy helped us create a seamless and impactful learning experience at scale.&rdquo;
+                  <br />
+                  <span className="font-semibold text-[#ED7424] not-italic">— Team Habuild</span>
+                </blockquote>
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Success Story Section */}
-      <section className="w-full py-16 md:py-24 bg-slate-50" id="success-story">
+      {/* Stats Section */}
+      <section className="w-full py-12 md:py-16 bg-gradient-to-br from-[#FFF9F4] to-[#FDEDD7]" id="stats">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-12"
+            style={{ color: "#2D3748", fontFamily: 'var(--font-space-grotesk)' }}
+          >
+            Real Results. Tangible Growth.
+          </motion.h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                icon: <TrendingUp className="h-8 w-8" />,
+                highlight: "2 Lakh+",
+                title: "Members Grown",
+                description: "From 300 to 2 Lakh in 10 months"
+              },
+              {
+                icon: <Target className="h-8 w-8" />,
+                highlight: "50%",
+                title: "Lead Conversion",
+                description: "Increase in conversion rates"
+              },
+              {
+                icon: <Heart className="h-8 w-8" />,
+                highlight: "40%",
+                title: "Retention Boost",
+                description: "Higher student retention"
+              },
+              {
+                icon: <Award className="h-8 w-8" />,
+                highlight: "70%",
+                title: "Cost Reduction",
+                description: "In operational overhead"
+              }
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-white p-8 rounded-2xl shadow-xl border border-white/50 hover:shadow-2xl transition-all duration-300"
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              >
+                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-2xl mb-6 mx-auto">
+                  <div className="text-white">
+                    {stat.icon}
+                  </div>
+                </div>
+                <div className="text-4xl font-bold text-[#ED7424] mb-2" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                  {stat.highlight}
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                  {stat.title}
+                </h3>
+                <p className="text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
+                  {stat.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Aanandham Success Story Section */}
+      <section className="w-full py-12 md:py-16" style={{ backgroundColor: '#F8FAF6' }} id="aanandham-success">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: "#495057", fontFamily: 'var(--font-space-grotesk)' }}>
-              Proven Success: The Habuild Story
-            </h2>
-            <p className="text-base md:text-lg text-gray-600 max-w-4xl mx-auto" style={{ fontFamily: 'var(--font-lato)' }}>
-              See how we helped Habuild scale their online habit-building platform from 300 to over 2 Lakh members in just 10 months by automating key online operations like payments, unique class links, and member referrals.
+          <h2
+            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-12 text-center"
+            style={{ color: "#2D3748", fontFamily: 'var(--font-space-grotesk)' }}
+          >
+            How <span className="bg-gradient-to-r from-[#ED7424] to-[#F19146] bg-clip-text text-transparent">Aanandham</span> scaled holistic well-being with Vacademy
+          </h2>
+
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
+            {/* Left Column - Content */}
+            <div className="lg:w-1/2 space-y-8">
+              <div>
+                <h3 className="text-2xl font-bold mb-4" style={{ color: "#2D3748", fontFamily: 'var(--font-space-grotesk)' }}>
+                  Aanandham Life School
+                </h3>
+                <p className="text-gray-700 leading-relaxed text-lg mb-6" style={{ fontFamily: 'var(--font-lato)' }}>
+                  When Aanandham set out to help individuals live more holistically healthy lives, they chose Vacademy to scale their vision. With our platform, they deliver transformative programs that integrate physical, mental, emotional, spiritual, and social well-being — all in one seamless experience.
+                </p>
+                <p className="text-gray-700 leading-relaxed text-lg mb-6" style={{ fontFamily: 'var(--font-lato)' }}>
+                  By using Vacademy&apos;s tools, Aanandham now hosts immersive sessions, tracks individual growth across five dimensions of wellness, and offers guided practices that engage all five senses — helping people feel and live with true bliss under their own brand.
+                </p>
+                <blockquote className="text-gray-800 italic mb-6 text-lg border-l-4 border-[#ED7424] pl-4" style={{ fontFamily: 'var(--font-lato)' }}>
+                  &ldquo;Vacademy helped us bring our philosophy of joyful, holistic living to life — with depth, ease, and scale.&rdquo;
+                  <br />
+                  <span className="font-semibold text-[#ED7424] not-italic">— Team Aanandham</span>
+                </blockquote>
+              </div>
+            </div>
+
+            {/* Right Column - Image */}
+            <div className="lg:w-1/2">
+                              <Image
+                  src="/assets/yoga/j.png"
+                  
+                  alt="Aanandham holistic wellness session - peaceful meditation and yoga retreat environment"
+                  width={600}
+                  height={500}
+                  className="w-full h-96 md:h-[500px] object-contain"
+                />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Aanandham Showcase Section */}
+      <section className="w-full py-20" style={{ backgroundColor: '#F9F9F9' }} id="aanandham-showcase">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Description Text */}
+          <div className="max-w-4xl mx-auto mb-16">
+            <p className="text-lg md:text-xl text-gray-700 leading-relaxed text-left" style={{ fontFamily: 'var(--font-lato)' }}>
+              We helped Aanandham deliver deeply immersive and sensory-rich programs with beautifully structured course flows, custom-branded sessions, and intuitive progress tracking — all powered by Vacademy.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            {stats.map((stat, index) => (
+          {/* Image Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {/* Image 1 - Placeholder */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="group cursor-pointer"
+            >
+              <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
+                <div className="relative">
+                  {/* Mock Browser Frame */}
+                  <div className="bg-gray-100 px-4 py-2 flex items-center space-x-2 border-b border-gray-200">
+                    <div className="flex space-x-2">
+                      <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+                      <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                      <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                    </div>
+                    <div className="flex-1 text-center text-xs text-gray-500 truncate">
+                      aanandham.vacademy.io
+                    </div>
+                  </div>
+                  
+                  {/* Screenshot 1 */}
+                  <Image
+                    src="/assets/yoga/ss-1.png"
+                    alt="Aanandham Course Flow Interface - beautifully structured course flows"
+                    width={600}
+                    height={400}
+                    className="w-full aspect-video object-cover"
+                  />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Image 2 - Placeholder */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="group cursor-pointer"
+            >
+              <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
+                <div className="relative">
+                  {/* Mock Browser Frame */}
+                  <div className="bg-gray-100 px-4 py-2 flex items-center space-x-2 border-b border-gray-200">
+                    <div className="flex space-x-2">
+                      <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+                      <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                      <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                    </div>
+                    <div className="flex-1 text-center text-xs text-gray-500 truncate">
+                      aanandham.vacademy.io
+                    </div>
+                  </div>
+                  
+                  {/* Screenshot 2 */}
+                  <Image
+                    src="/assets/yoga/ss-2.png"
+                    alt="Aanandham Custom Branded Session - custom-branded sessions"
+                    width={600}
+                    height={400}
+                    className="w-full aspect-video object-cover"
+                  />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Image 3 - Placeholder */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="group cursor-pointer md:col-span-2 md:max-w-md md:mx-auto"
+            >
+              <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
+                <div className="relative">
+                  {/* Mock Browser Frame */}
+                  <div className="bg-gray-100 px-4 py-2 flex items-center space-x-2 border-b border-gray-200">
+                    <div className="flex space-x-2">
+                      <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+                      <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                      <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                    </div>
+                    <div className="flex-1 text-center text-xs text-gray-500 truncate">
+                      aanandham.vacademy.io
+                    </div>
+                  </div>
+                  
+                  {/* Screenshot 3 */}
+                  <Image
+                    src="/assets/yoga/ss-3.png"
+                    alt="Aanandham Progress Tracking Dashboard - intuitive progress tracking"
+                    width={600}
+                    height={400}
+                    className="w-full aspect-video object-cover"
+                  />
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Storytelling Section - Pain Points to Solutions */}
+      <section className="w-full py-12 md:py-16 bg-gradient-to-br from-white to-[#FFF9F4]" id="story">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Modern Visual Pain Points Section */}
+          <div className="text-center mb-12">
+            {/* Headline */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6" style={{ color: "#2D3748", fontFamily: 'var(--font-space-grotesk)' }}>
+                Still doing everything manually?
+              </h2>
+              <p className="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto" style={{ fontFamily: 'var(--font-lato)' }}>
+                Wellness trainers like you deserve better than endless paperwork and admin tasks.
+              </p>
+            </motion.div>
+
+            {/* Pain Points - Horizontal Layout */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12"
+            >
+              <div className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-[#FDEDD7] to-[#FFF9F4] rounded-2xl flex items-center justify-center shadow-lg mx-auto mb-4">
+                  <FileText className="h-10 w-10 text-[#ED7424]" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                  Manual Paperwork
+                </h3>
+                <p className="text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
+                  Endless forms and documentation
+                </p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-[#FDEDD7] to-[#FFF9F4] rounded-2xl flex items-center justify-center shadow-lg mx-auto mb-4">
+                  <CreditCard className="h-10 w-10 text-[#ED7424]" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                  Chasing Payments
+                </h3>
+                <p className="text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
+                  Following up on failed transactions
+                </p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-[#FDEDD7] to-[#FFF9F4] rounded-2xl flex items-center justify-center shadow-lg mx-auto mb-4">
+                  <RefreshCw className="h-10 w-10 text-[#ED7424]" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                  Repetitive Admin Tasks
+                </h3>
+                <p className="text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
+                  Time-consuming daily operations
+                </p>
+              </div>
+            </motion.div>
+
+            {/* CTA Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="mt-12"
+            >
+              <Link
+                href="/booking"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#ED7424] to-[#F19146] text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-lg"
+                style={{ fontFamily: 'var(--font-space-grotesk)' }}
+              >
+                <span>Automate Your Studio</span>
+                <ArrowRight className="h-5 w-5" />
+              </Link>
+            </motion.div>
+          </div>
+
+          {/* Section Divider */}
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="w-32 h-1 bg-gradient-to-r from-[#ED7424] to-[#F19146] mx-auto my-16 rounded-full"
+          />
+
+          {/* Solution Title */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-center mb-12"
+          >
+            <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold" style={{ color: "#2D3748", fontFamily: 'var(--font-space-grotesk)' }}>
+              Let Vacademy take over from here.
+            </h3>
+          </motion.div>
+
+          {/* Feature Showcase - Alternating Layout */}
+          <div className="space-y-16">
+            {/* Row 1: Features Left, Image Right */}
+          <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center"
+            >
+              <div className="lg:w-1/2 space-y-8">
+              <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-all duration-300"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-xl text-white shadow-lg">
+                      <Zap className="h-6 w-6" />
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-800" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                      Automate all the touch points
+                    </h4>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+                    Streamline every interaction with your students from onboarding to engagement.
+                  </p>
+              </motion.div>
+              
+              <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-all duration-300"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-xl text-white shadow-lg">
+                      <ArrowRight className="h-6 w-6" />
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-800" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                      Restart memberships with pre-filled forms
+                    </h4>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+                    Seamlessly renew memberships with automated, personalized forms.
+                  </p>
+              </motion.div>
+              </div>
+              
+              <div className="lg:w-1/2">
+              <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="relative rounded-2xl overflow-hidden shadow-2xl"
+                >
+                  <Image
+                    src="/assets/yoga/yoga-app.jpg"
+                    alt="Automated wellness platform dashboard"
+                    width={600}
+                    height={400}
+                    className="w-full h-80 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </motion.div>
+              </div>
+              </motion.div>
+              
+            {/* Row 2: Image Left, Features Right */}
+              <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col lg:flex-row-reverse gap-12 lg:gap-20 items-center"
+            >
+              <div className="lg:w-1/2 space-y-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-all duration-300"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-xl text-white shadow-lg">
+                      <CreditCard className="h-6 w-6" />
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-800" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                      Handle payments, coupons, and gateways
+                    </h4>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+                    Manage all payment processes with multiple gateway support and automated handling.
+                  </p>
+              </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-all duration-300"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-xl text-white shadow-lg">
+                      <Users className="h-6 w-6" />
+            </div>
+                    <h4 className="text-xl font-bold text-gray-800" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                      Launch your referral engine
+                    </h4>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+                    Custom rewards, leaderboards, and unique links to grow your community organically.
+                  </p>
+                </motion.div>
+              </div>
+
+              <div className="lg:w-1/2">
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="relative rounded-2xl overflow-hidden shadow-2xl"
+                >
+                  <Image
+                    src="/assets/yoga/yoga-attendance.jpg"
+                    alt="Payment and referral management system"
+                    width={600}
+                    height={400}
+                    className="w-full h-80 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Row 3: Features Left, Image Right */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center"
+            >
+              <div className="lg:w-1/2 space-y-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-all duration-300"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-xl text-white shadow-lg">
+                      <Target className="h-6 w-6" />
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-800" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                      Build a full user funnel
+                    </h4>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+                    From ads to walk-ins, create seamless customer journeys that convert.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-all duration-300"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-xl text-white shadow-lg">
+                      <Video className="h-6 w-6" />
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-800" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                      Run demo programs and webinars
+                    </h4>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+                    Host engaging sessions and enrich leads with interactive content.
+                  </p>
+                </motion.div>
+              </div>
+
+              <div className="lg:w-1/2">
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="relative rounded-2xl overflow-hidden shadow-2xl"
+                >
+                  <Image
+                    src="/assets/yoga/yoga-community.jpg"
+                    alt="User funnel and webinar platform"
+                    width={600}
+                    height={400}
+                    className="w-full h-80 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* CTA Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-center mt-12"
+          >
+            <Link
+              href="/booking"
+              className="inline-flex items-center px-10 py-5 bg-gradient-to-r from-[#ED7424] to-[#F19146] text-white font-semibold text-xl rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+              style={{ fontFamily: 'var(--font-space-grotesk)' }}
+            >
+              Try Vacademy Now
+              <ChevronRight className="ml-3 h-6 w-6" />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+
+
+      {/* Value Proposition Section */}
+      <section className="w-full py-12 md:py-16 bg-white" id="value-proposition">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
+              style={{ color: "#2D3748", fontFamily: 'var(--font-space-grotesk)' }}
+            >
+              Why Choose Vacademy?
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed"
+              style={{ fontFamily: 'var(--font-lato)' }}
+            >
+              Unlike generic platforms, Vacademy is built specifically for wellness trainers who want to deliver transformative experiences and build thriving communities.
+            </motion.p>
+          </div>
+
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+            <div className="lg:w-1/2 space-y-8">
+              <motion.div
+                className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-all duration-300"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="p-3 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-xl text-white shadow-lg">
+                    <Zap className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-800" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                    Easy to Use
+                  </h3>
+                </div>
+                <p className="text-gray-600 leading-relaxed text-lg" style={{ fontFamily: 'var(--font-lato)' }}>
+                  No technical skills required. Set up your branded platform in minutes and start teaching immediately.
+                </p>
+              </motion.div>
+              
+              <motion.div
+                className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-all duration-300"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="p-3 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-xl text-white shadow-lg">
+                    <Target className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-800" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                    Purpose-Built
+                  </h3>
+                </div>
+                <p className="text-gray-600 leading-relaxed text-lg" style={{ fontFamily: 'var(--font-lato)' }}>
+                  Designed specifically for yoga, fitness, and wellness trainers with features that matter to your business.
+                </p>
+              </motion.div>
+          </div>
+
+            <div className="lg:w-1/2">
+              <motion.div
+                className="relative rounded-2xl overflow-hidden shadow-2xl"
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <Image
+                  src="/assets/yoga/yoga-trainer.jpg"
+                  alt="Vacademy platform dashboard showing easy setup"
+                  width={600}
+                  height={400}
+                  className="w-full h-80 object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+                    
+      {/* Testimonials Section */}
+      <section className="w-full py-20 md:py-28 bg-gradient-to-br from-[#FFF9F4] to-[#FDEDD7]" id="testimonials">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+                      <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg mb-6"
+            >
+              <Heart className="h-5 w-5 text-[#ED7424]" />
+              <span className="text-[#ED7424] font-semibold text-sm" style={{ fontFamily: 'var(--font-lato)' }}>
+                What Our Users Say
+              </span>
+                      </motion.div>
+            
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6" style={{ color: "#2D3748", fontFamily: 'var(--font-space-grotesk)' }}>
+              Trusted by Wellness Trainers Worldwide
+            </h2>
+            <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+              From yoga instructors to fitness bootcamp leaders, healthy cooking teachers to meditation guides – trainers across the wellness spectrum choose Vacademy for their specialized needs
+                      </p>
+                    </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
               <motion.div
                 key={index}
-                className="bg-white p-6 rounded-xl shadow-lg text-center"
+                className="bg-white p-8 rounded-2xl shadow-xl border border-white/50"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
               >
-                <div className="flex justify-center mb-4">
-                  <div className="p-3 bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] rounded-full text-white">
-                    {stat.icon}
+                <div className="flex items-center gap-1 mb-4">
+                  {Array.from({ length: testimonial.rating }).map((_, i) => (
+                    <Star key={i} className="h-5 w-5 fill-[#ED7424] text-[#ED7424]" />
+                  ))}
+                </div>
+                
+                <p className="text-gray-700 leading-relaxed mb-6" style={{ fontFamily: 'var(--font-lato)' }}>
+                  &ldquo;{testimonial.content}&rdquo;
+                </p>
+                
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-full flex items-center justify-center text-white font-semibold">
+                    {testimonial.name.charAt(0)}
+                      </div>
+                  <div>
+                    <div className="font-semibold text-gray-800" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                      {testimonial.name}
+                    </div>
+                    <div className="text-gray-600 text-sm" style={{ fontFamily: 'var(--font-lato)' }}>
+                      {testimonial.role}
+                    </div>
                   </div>
-                </div>
-                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] bg-clip-text text-transparent mb-2" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                  {stat.value}
-                </div>
-                <div className="text-lg font-semibold text-gray-800 mb-1" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                  {stat.label}
-                </div>
-                <div className="text-sm text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
-                  {stat.description}
                 </div>
               </motion.div>
             ))}
-          </div>
-
-          <div className="bg-white p-8 rounded-xl shadow-lg">
-            <p className="text-base md:text-lg text-gray-700 leading-relaxed text-center" style={{ fontFamily: 'var(--font-lato)' }}>
-              Habuild faced challenges managing membership growth with manual processes, scaling personalized notifications, tracking online member sessions, and streamlining payments. Our custom software solutions were instrumental in their exponential growth. 
-              <strong className="text-[#a0a3e8]"> Vacademy brings the same proven technology and expertise directly to you, the online trainer.</strong>
-            </p>
-            <div className="text-center mt-6">
-              <Link
-                href="/blog/10x_growth"
-                className="inline-flex items-center gap-2 text-[#a0a3e8] hover:text-[#888ae0] font-medium transition-colors"
-                style={{ fontFamily: 'var(--font-lato)' }}
-              >
-                Read our full case study: Scaling HABUILD from 300 to 20 Lakh Members in 10 Months
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="w-full py-16 md:py-24" id="benefits">
+      {/* Pricing Section */}
+      <section className="w-full py-12 md:py-16 bg-gradient-to-br from-[#FFF9F4] to-[#FDEDD7]" id="pricing">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: "#495057", fontFamily: 'var(--font-space-grotesk)' }}>
-              Transform Your Online Business: Key Benefits for Yoga & Fitness Trainers
+          <div className="text-center mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 bg-[#FDEDD7] px-6 py-3 rounded-full mb-6"
+            >
+              <DollarSign className="h-5 w-5 text-[#ED7424]" />
+              <span className="text-[#ED7424] font-semibold text-sm" style={{ fontFamily: 'var(--font-lato)' }}>
+                Pricing Plans
+              </span>
+            </motion.div>
+            
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6" style={{ color: "#2D3748", fontFamily: 'var(--font-space-grotesk)' }}>
+              Choose Your Perfect Plan
             </h2>
-            <p className="text-base md:text-lg text-gray-600 max-w-4xl mx-auto" style={{ fontFamily: 'var(--font-lato)' }}>
-              Vacademy's integrated platform provides a professional, intuitive online environment that addresses the specific needs of yoga and fitness businesses, which thrive on visual demonstration, interactive practice, personalized feedback, and fostering a strong sense of community, especially in a digital setting.
+            <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+              Start with our free trial and scale as you grow. No hidden fees, no surprises.
             </p>
           </div>
 
-          <div className="space-y-16">
-            {benefitFeatures.map((feature, index) => (
-              <motion.div
-                key={index}
-                className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-16 items-center`}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {/* Starter Plan */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300"
+            >
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-gray-800 mb-4" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                  Starter
+                </h3>
+                <div className="text-4xl font-bold text-[#ED7424] mb-2" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                  Free
+                </div>
+                <p className="text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
+                  Perfect for new wellness trainers
+                </p>
+              </div>
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Up to 50 students</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Basic branding</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Live classes</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Email support</span>
+                </li>
+              </ul>
+              <Link
+                href="/booking"
+                className="w-full block text-center bg-gradient-to-r from-[#ED7424] to-[#F19146] text-white font-semibold py-3 rounded-xl hover:shadow-lg transition-all duration-300"
+                style={{ fontFamily: 'var(--font-space-grotesk)' }}
               >
-                <div className="lg:w-1/2 space-y-6">
-                  <div className="flex items-center gap-4">
-                    <div className="p-3 bg-purple-100 rounded-full">
-                      {feature.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-xl md:text-2xl font-bold text-gray-800" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                        {feature.title}
-                      </h3>
-                      <p className="text-lg font-medium text-[#a0a3e8]" style={{ fontFamily: 'var(--font-lato)' }}>
-                        {feature.subtitle}
-                      </p>
-                    </div>
-                  </div>
-                  <p className="text-gray-600 leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
-                    {feature.description}
-                  </p>
+                Start Free Trial
+              </Link>
+            </motion.div>
+
+            {/* Pro Plan */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="bg-white rounded-2xl shadow-xl p-8 border-2 border-[#ED7424] relative hover:shadow-2xl transition-all duration-300"
+            >
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#ED7424] to-[#F19146] text-white px-6 py-2 rounded-full text-sm font-semibold">
+                Most Popular
+              </div>
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-gray-800 mb-4" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                  Pro
+                </h3>
+                <div className="text-4xl font-bold text-[#ED7424] mb-2" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                  $49
                 </div>
-                
-                <div className="lg:w-1/2">
-                  <div className="glass-card p-8 rounded-2xl min-h-[300px] flex items-center justify-center relative overflow-hidden">
-                    {/* Background Pattern */}
-                    <div className="absolute inset-0 opacity-10">
-                      <div className="flex flex-wrap gap-4 p-4">
-                        {index === 0 && (
-                          <>
-                            <DollarSign className="h-6 w-6 text-white" />
-                            <Calendar className="h-6 w-6 text-white" />
-                            <Users className="h-6 w-6 text-white" />
-                          </>
-                        )}
-                        {index === 1 && (
-                          <>
-                            <Play className="h-6 w-6 text-white" />
-                            <Video className="h-6 w-6 text-white" />
-                            <Wifi className="h-6 w-6 text-white" />
-                          </>
-                        )}
-                        {index === 2 && (
-                          <>
-                            <TrendingUp className="h-6 w-6 text-white" />
-                            <Target className="h-6 w-6 text-white" />
-                            <Award className="h-6 w-6 text-white" />
-                          </>
-                        )}
-                        {index === 3 && (
-                          <>
-                            <MessageCircle className="h-6 w-6 text-white" />
-                            <Heart className="h-6 w-6 text-white" />
-                            <Activity className="h-6 w-6 text-white" />
-                          </>
-                        )}
-                        {index === 4 && (
-                          <>
-                            <Brain className="h-6 w-6 text-white" />
-                            <Sparkles className="h-6 w-6 text-white" />
-                            <Target className="h-6 w-6 text-white" />
-                          </>
-                        )}
-                        {index === 5 && (
-                          <>
-                            <BarChart3 className="h-6 w-6 text-white" />
-                            <TrendingUp className="h-6 w-6 text-white" />
-                            <Activity className="h-6 w-6 text-white" />
-                          </>
-                        )}
-                        {index === 6 && (
-                          <>
-                            <Palette className="h-6 w-6 text-white" />
-                            <Sparkles className="h-6 w-6 text-white" />
-                            <Award className="h-6 w-6 text-white" />
-                          </>
-                        )}
-                      </div>
-                    </div>
-                    
-                    <div className="text-center relative z-10">
-                      <motion.div 
-                        className="mb-4 p-4 bg-white/20 rounded-full w-fit mx-auto"
-                        whileHover={{ scale: 1.1, rotate: 360 }}
-                        transition={{ duration: 0.6 }}
-                      >
-                        {React.cloneElement(feature.icon, { className: "h-12 w-12 text-white" })}
-                      </motion.div>
-                      <h4 className="text-xl font-bold text-white mb-2" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                        {feature.title.split(' ').slice(0, 3).join(' ')}
-                      </h4>
-                      <p className="text-white/90 text-sm" style={{ fontFamily: 'var(--font-lato)' }}>
-                        Professional tools for online yoga & fitness instruction
-                      </p>
-                    </div>
-                  </div>
+                <p className="text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
+                  per month
+                </p>
+              </div>
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Up to 500 students</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Full branding</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Advanced analytics</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Priority support</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Referral system</span>
+                </li>
+              </ul>
+              <Link
+                href="/booking"
+                className="w-full block text-center bg-gradient-to-r from-[#ED7424] to-[#F19146] text-white font-semibold py-3 rounded-xl hover:shadow-lg transition-all duration-300"
+                style={{ fontFamily: 'var(--font-space-grotesk)' }}
+              >
+                Start Pro Trial
+              </Link>
+            </motion.div>
+
+            {/* Business Plan */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300"
+            >
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-gray-800 mb-4" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                  Business
+                </h3>
+                <div className="text-4xl font-bold text-[#ED7424] mb-2" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                  $99
                 </div>
-              </motion.div>
-            ))}
+                <p className="text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
+                  per month
+                </p>
+              </div>
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Unlimited students</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Custom domain</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>White-label solution</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Dedicated support</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>API access</span>
+                </li>
+              </ul>
+              <Link
+                href="/booking"
+                className="w-full block text-center bg-gradient-to-r from-[#ED7424] to-[#F19146] text-white font-semibold py-3 rounded-xl hover:shadow-lg transition-all duration-300"
+                style={{ fontFamily: 'var(--font-space-grotesk)' }}
+              >
+                Contact Sales
+              </Link>
+            </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="w-full py-12 md:py-16 bg-white" id="contact">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="space-y-8"
+          >
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight" style={{ color: "#2D3748", fontFamily: 'var(--font-space-grotesk)' }}>
+              Ready to Transform Your Wellness Business?
+            </h2>
+            
+            <p className="text-lg md:text-xl text-gray-700 leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+              Get in touch with our team to discuss how Vacademy can help you scale your wellness academy and reach more students.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <Link
+                href="/booking"
+                className="group flex items-center justify-center gap-3 rounded-2xl px-10 py-5 font-semibold text-white shadow-xl transition-all duration-300 text-xl hover:shadow-2xl hover:scale-105 bg-gradient-to-r from-[#ED7424] to-[#F19146]"
+                style={{ fontFamily: 'var(--font-lato)' }}
+              >
+                <span>Book a Demo</span>
+                <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
+              </Link>
+              
+              <Link
+                href="mailto:hello@vacademy.com"
+                className="group flex items-center justify-center gap-3 rounded-2xl px-10 py-5 font-semibold transition-all duration-300 text-xl border-2 border-[#ED7424] text-[#ED7424] hover:bg-[#ED7424] hover:text-white"
+                style={{ fontFamily: 'var(--font-lato)' }}
+              >
+                <span>Email Us</span>
+              </Link>
+            </div>
+
+            <div className="pt-8">
+              <p className="text-gray-600 mb-4 text-lg" style={{ fontFamily: 'var(--font-lato)' }}>
+                Or call us directly:
+              </p>
+              <a
+                href="tel:+1-555-0123"
+                className="text-2xl font-bold text-[#ED7424] hover:text-[#F19146] transition-colors"
+                style={{ fontFamily: 'var(--font-space-grotesk)' }}
+              >
+                +1 (555) 012-3456
+              </a>
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* What You Get Section */}
-      <section className="w-full py-16 md:py-24 bg-slate-50" id="features">
+      <section className="w-full py-12 md:py-16" id="features">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: "#495057", fontFamily: 'var(--font-space-grotesk)' }}>
-              What You Get with Vacademy for Your Online Academy
-            </h2>
-            <div className="flex justify-center gap-4 mt-6">
-              <div className="flex items-center gap-2 bg-purple-100 px-4 py-2 rounded-full">
-                <Monitor className="h-5 w-5 text-purple-600" />
-                <span className="text-purple-700 font-medium text-sm" style={{ fontFamily: 'var(--font-lato)' }}>Web Platform</span>
+          <div className="text-center mb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 bg-[#FDEDD7] px-6 py-3 rounded-full mb-6"
+            >
+              <CheckCircle className="h-5 w-5 text-[#ED7424]" />
+              <span className="text-[#ED7424] font-semibold text-sm" style={{ fontFamily: 'var(--font-lato)' }}>
+                What You Get
+              </span>
+            </motion.div>
+            
+                          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6" style={{ color: "#2D3748", fontFamily: 'var(--font-space-grotesk)' }}>
+                Everything You Need to Scale Your Wellness Business
+              </h2>
+            <div className="flex flex-wrap justify-center gap-4 mt-8">
+              <div className="flex items-center gap-2 bg-[#FDEDD7] px-6 py-3 rounded-full">
+                <Monitor className="h-5 w-5 text-[#ED7424]" />
+                <span className="text-[#ED7424] font-semibold" style={{ fontFamily: 'var(--font-lato)' }}>Web Platform</span>
               </div>
-              <div className="flex items-center gap-2 bg-purple-100 px-4 py-2 rounded-full">
-                <Smartphone className="h-5 w-5 text-purple-600" />
-                <span className="text-purple-700 font-medium text-sm" style={{ fontFamily: 'var(--font-lato)' }}>Mobile App</span>
+              <div className="flex items-center gap-2 bg-[#FDEDD7] px-6 py-3 rounded-full">
+                <Smartphone className="h-5 w-5 text-[#ED7424]" />
+                <span className="text-[#ED7424] font-semibold" style={{ fontFamily: 'var(--font-lato)' }}>Mobile App</span>
               </div>
-              <div className="flex items-center gap-2 bg-purple-100 px-4 py-2 rounded-full">
-                <Activity className="h-5 w-5 text-purple-600" />
-                <span className="text-purple-700 font-medium text-sm" style={{ fontFamily: 'var(--font-lato)' }}>Analytics</span>
+              <div className="flex items-center gap-2 bg-[#FDEDD7] px-6 py-3 rounded-full">
+                <Activity className="h-5 w-5 text-[#ED7424]" />
+                <span className="text-[#ED7424] font-semibold" style={{ fontFamily: 'var(--font-lato)' }}>Analytics</span>
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             <motion.div
-              className="bg-white p-8 rounded-xl shadow-lg text-center"
+              className="bg-white p-10 rounded-2xl shadow-xl text-center border border-white/50"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
             >
-              <div className="p-4 bg-purple-100 rounded-full w-fit mx-auto mb-4">
-                <Monitor className="h-12 w-12 text-purple-600" />
+              <div className="p-6 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-2xl w-fit mx-auto mb-6 shadow-lg">
+                <Monitor className="h-16 w-16 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
                 Web Dashboard with Admin CRM
               </h3>
-              <p className="text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
+              <p className="text-gray-700 leading-relaxed text-lg" style={{ fontFamily: 'var(--font-lato)' }}>
                 Your central hub for managing everything for your online business. Track students, payments, sessions, and analytics all in one place.
               </p>
             </motion.div>
 
             <motion.div
-              className="bg-white p-8 rounded-xl shadow-lg text-center"
+              className="bg-white p-10 rounded-2xl shadow-xl text-center border border-white/50"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
             >
-              <div className="p-4 bg-purple-100 rounded-full w-fit mx-auto mb-4">
-                <Smartphone className="h-12 w-12 text-purple-600" />
+              <div className="p-6 bg-gradient-to-r from-[#ED7424] to-[#F19146] rounded-2xl w-fit mx-auto mb-6 shadow-lg">
+                <Smartphone className="h-16 w-16 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
                 Mobile Web App for Students
               </h3>
-              <p className="text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
+              <p className="text-gray-700 leading-relaxed text-lg" style={{ fontFamily: 'var(--font-lato)' }}>
                 Easy access for your online students, anytime, anywhere, on any device. Seamless experience across all platforms.
               </p>
             </motion.div>
@@ -437,8 +1592,8 @@ export default function YogaPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="w-full py-16 md:py-24" id="cta">
+      {/* Sticky CTA Footer */}
+      <section className="w-full py-12 md:py-16 bg-gradient-to-r from-[#ED7424] to-[#F19146] sticky bottom-0 z-50 shadow-2xl" id="cta">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -451,62 +1606,62 @@ export default function YogaPage() {
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 2, repeat: Infinity, delay: 0 }}
-                  className="p-3 bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] rounded-full text-white"
+                  className="p-4 bg-white/20 backdrop-blur-sm rounded-2xl"
                 >
-                  <Activity className="h-6 w-6" />
+                  <Activity className="h-8 w-8 text-white" />
                 </motion.div>
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                  className="p-3 bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] rounded-full text-white"
+                  className="p-4 bg-white/20 backdrop-blur-sm rounded-2xl"
                 >
-                  <Heart className="h-6 w-6" />
+                  <Heart className="h-8 w-8 text-white" />
                 </motion.div>
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                  className="p-3 bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] rounded-full text-white"
+                  className="p-4 bg-white/20 backdrop-blur-sm rounded-2xl"
                 >
-                  <TrendingUp className="h-6 w-6" />
+                  <TrendingUp className="h-8 w-8 text-white" />
                 </motion.div>
               </div>
             </div>
 
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: "#495057", fontFamily: 'var(--font-space-grotesk)' }}>
-              Ready to Transform Your Online Yoga or Fitness Business?
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+              Ready to Join the Online Wellness Revolution?
             </h2>
             
-            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto" style={{ fontFamily: 'var(--font-lato)' }}>
-              Join the growing community of trainers who are embracing efficient, scalable growth for their online offerings with Vacademy. Your next level of success starts here.
+            <p className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+              The online wellness market is growing faster than ever. Join trainers like Greg O&apos;Gallagher and Rachel Jesien who are building thriving online wellness businesses with Vacademy&apos;s specialized platform.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <Link
                 href="/booking"
-                className="group flex items-center justify-center gap-2 rounded-full px-8 py-4 font-medium text-white shadow-lg transition-all duration-300 text-lg bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
-                style={{ fontFamily: 'var(--font-lato)', fontWeight: 500, boxShadow: '0 4px 24px 0 rgba(160, 163, 232, 0.3)' }}
+                className="group flex items-center justify-center gap-3 rounded-2xl px-10 py-5 font-semibold text-[#ED7424] bg-white shadow-xl transition-all duration-300 text-xl hover:shadow-2xl hover:scale-105"
+                style={{ fontFamily: 'var(--font-lato)' }}
               >
                 <span>Launch Your Online Academy Today!</span>
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
               </Link>
               
               <Link
                 href="/booking"
-                className="group flex items-center justify-center gap-2 rounded-full px-8 py-4 font-medium transition-all duration-300 text-lg border-2 border-[#a0a3e8] text-[#a0a3e8] hover:bg-[#a0a3e8] hover:text-white"
-                style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
+                className="group flex items-center justify-center gap-3 rounded-2xl px-10 py-5 font-semibold transition-all duration-300 text-xl border-2 border-white text-white hover:bg-white hover:text-[#ED7424]"
+                style={{ fontFamily: 'var(--font-lato)' }}
               >
                 <span>Request a Personalized Demo</span>
               </Link>
             </div>
 
             <div className="pt-8">
-              <p className="text-gray-600 mb-4" style={{ fontFamily: 'var(--font-lato)' }}>
+              <p className="text-white/90 mb-4 text-lg" style={{ fontFamily: 'var(--font-lato)' }}>
                 Explore Our Flexible Pricing Tiers
               </p>
-              <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500" style={{ fontFamily: 'var(--font-lato)' }}>
+              <div className="flex flex-wrap justify-center gap-6 text-white/80 text-base" style={{ fontFamily: 'var(--font-lato)' }}>
                 <span>• Starter/Solo for new online instructors</span>
                 <span>• Growth/Pro for established instructors</span>
-                <span>• Business/Studio for larger online academies with multiple instructors</span>
+                <span>• Business/Studio for larger online academies</span>
               </div>
             </div>
           </motion.div>
