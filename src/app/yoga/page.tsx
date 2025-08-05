@@ -124,6 +124,21 @@ export default function YogaPage() {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [selectedCurrency, setSelectedCurrency] = useState('INR');
 
+  // Client-side redirect check for yoga domain
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hostname = window.location.hostname;
+      const pathname = window.location.pathname;
+      
+      // If we're on yoga domain but not on /yoga path, redirect
+      if (hostname.includes('yoga') && pathname !== '/yoga') {
+        console.log('🧘 Client-side redirect: yoga domain detected, redirecting to /yoga');
+        window.location.href = '/yoga';
+        return;
+      }
+    }
+  }, []);
+
   // Currency conversion function
   const convertCurrency = (amount: number, fromCurrency: string, toCurrency: string) => {
     if (fromCurrency === toCurrency) return amount;
@@ -187,8 +202,8 @@ export default function YogaPage() {
     <main className="relative w-full min-h-screen flex flex-col items-center bg-white overflow-hidden">
       <DecorativeCircles />
       
-      {/* Breadcrumb Navigation - Above Header */}
-      <nav className="w-full bg-white border-b border-gray-100 py-2 z-50 relative">
+      {/* Breadcrumb Navigation - Fixed at top */}
+      <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-100 py-2 z-60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-2 text-xs text-gray-500" style={{ fontFamily: 'var(--font-lato)' }}>
             <Link href="/" className="hover:text-[#ED7424] transition-colors">
@@ -204,7 +219,7 @@ export default function YogaPage() {
       
       {/* Full-Screen Dynamic Hero Section */}
       <section 
-        className="relative h-screen w-full overflow-hidden"
+        className="relative h-screen w-full overflow-hidden pt-28"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >

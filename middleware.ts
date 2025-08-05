@@ -5,38 +5,32 @@ export function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || '';
   const { pathname } = request.nextUrl;
   
-  // Debug logging for development
-  if (process.env.NODE_ENV === 'development') {
-    console.log(`🔍 Middleware: ${hostname}${pathname}`);
-  }
+  // Always log for debugging
+  console.log(`🔍 Middleware triggered: ${hostname}${pathname}`);
 
   // Handle Yoga domain (yoga.vacademy.io) - Check this FIRST
-  if (hostname.startsWith('yoga.vacademy') || hostname === 'yoga.vacademy.io' || hostname.includes('yoga.vacademy')) {
+  if (hostname.includes('yoga')) {
     console.log(`🧘 Yoga domain detected: ${hostname}${pathname}`);
     
-    // Redirect root path and any other path to the yoga page
-    if (pathname === '/' || pathname !== '/yoga') {
-      console.log(`🔄 Redirecting ${pathname} to /yoga`);
-      const url = request.nextUrl.clone();
-      url.pathname = '/yoga';
-      return NextResponse.redirect(url);
+    // If already on /yoga path, allow it
+    if (pathname === '/yoga') {
+      console.log(`✅ Allowing yoga route: ${pathname}`);
+      return NextResponse.next();
     }
     
-    // Allow access to yoga page
-    console.log(`✅ Allowing yoga route: ${pathname}`);
-    return NextResponse.next();
+    // Redirect any other path to /yoga
+    console.log(`🔄 Redirecting ${pathname} to /yoga`);
+    return NextResponse.redirect(new URL('/yoga', request.url));
   }
 
-  // Handle Vacademy domain (lms.vacademy.localhost or lms.vacademy.io) - but NOT yoga.vacademy
-  if (hostname.includes('vacademy') && !hostname.startsWith('yoga.')) {
+  // Handle Vacademy domain (but NOT yoga.vacademy)
+  if (hostname.includes('vacademy') && !hostname.includes('yoga')) {
     console.log(`🟢 Vacademy domain detected: ${hostname}${pathname}`);
     
     // If on Vacademy domain but trying to access AI pages, redirect to blog
     if (pathname === '/' || pathname === '/ai-course-creator' || pathname === '/booking') {
       console.log(`🔄 Redirecting ${pathname} to /blog`);
-      const url = request.nextUrl.clone();
-      url.pathname = '/blog';
-      return NextResponse.redirect(url);
+      return NextResponse.redirect(new URL('/blog', request.url));
     }
     
     // Allow Vacademy specific routes (blog and its sub-routes)
@@ -47,9 +41,7 @@ export function middleware(request: NextRequest) {
     
     // Redirect any other paths to blog
     console.log(`🔄 Redirecting unknown path ${pathname} to /blog`);
-    const url = request.nextUrl.clone();
-    url.pathname = '/blog';
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(new URL('/blog', request.url));
   }
 
   // Handle AI domain (default for localhost and ai.vidyayatan.com)
@@ -58,19 +50,12 @@ export function middleware(request: NextRequest) {
   // Block access to Vacademy-specific routes from AI domain
   if (pathname.startsWith('/blog')) {
     console.log(`🚫 Blocking blog access from AI domain`);
-    const url = request.nextUrl.clone();
-    url.pathname = '/';
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(new URL('/', request.url));
   }
   
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Only match page routes, exclude all Next.js internals and static assets
-     */
-    '/((?!_next|api|favicon.ico|public).*)',
-  ],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 }; 

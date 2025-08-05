@@ -52,7 +52,7 @@ export const Header = () => {
 
   return (
     <>
-      <header className="fixed top-4 left-0 right-0 z-50 px-4">
+      <header className="fixed top-12 left-0 right-0 z-50 px-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between h-16 px-4 bg-white/20 backdrop-blur-2xl rounded-full shadow-lg border border-white/30">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">

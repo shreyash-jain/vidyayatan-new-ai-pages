@@ -269,6 +269,19 @@ const useCases: UseCase[] = [
 ];
 
 export default function Home() {
+  // Client-side redirect check for yoga domain
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hostname = window.location.hostname;
+      
+      // If we're on yoga domain, redirect to yoga page
+      if (hostname.includes('yoga')) {
+        console.log('🧘 Client-side redirect: yoga domain detected, redirecting to /yoga');
+        window.location.href = '/yoga';
+        return;
+      }
+    }
+  }, []);
   const [employeeApi, setEmployeeApi] = React.useState<CarouselApi>()
   const [employeeCurrent, setEmployeeCurrent] = React.useState(0)
   const [employeeCount, setEmployeeCount] = React.useState(0)
