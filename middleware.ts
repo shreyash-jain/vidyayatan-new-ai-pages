@@ -10,12 +10,12 @@ export function middleware(request: NextRequest) {
     console.log(`🔍 Middleware: ${hostname}${pathname}`);
   }
 
-  // Handle Yoga domain (yoga.vacademy.io)
-  if (hostname.includes('yoga.vacademy')) {
+  // Handle Yoga domain (yoga.vacademy.io) - Check this FIRST
+  if (hostname.startsWith('yoga.vacademy') || hostname === 'yoga.vacademy.io' || hostname.includes('yoga.vacademy')) {
     console.log(`🧘 Yoga domain detected: ${hostname}${pathname}`);
     
-    // Redirect all paths to the yoga page
-    if (pathname !== '/yoga') {
+    // Redirect root path and any other path to the yoga page
+    if (pathname === '/' || pathname !== '/yoga') {
       console.log(`🔄 Redirecting ${pathname} to /yoga`);
       const url = request.nextUrl.clone();
       url.pathname = '/yoga';
@@ -27,8 +27,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Handle Vacademy domain (lms.vacademy.localhost or lms.vacademy.io)
-  if (hostname.includes('vacademy')) {
+  // Handle Vacademy domain (lms.vacademy.localhost or lms.vacademy.io) - but NOT yoga.vacademy
+  if (hostname.includes('vacademy') && !hostname.startsWith('yoga.')) {
     console.log(`🟢 Vacademy domain detected: ${hostname}${pathname}`);
     
     // If on Vacademy domain but trying to access AI pages, redirect to blog

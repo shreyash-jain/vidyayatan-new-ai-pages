@@ -186,12 +186,11 @@ export default function YogaPage() {
   return (
     <main className="relative w-full min-h-screen flex flex-col items-center bg-white overflow-hidden">
       <DecorativeCircles />
-      <Header />
       
-      {/* Breadcrumb Navigation */}
-      <nav className="w-full bg-gray-50 border-b border-gray-200 py-3">
+      {/* Breadcrumb Navigation - Above Header */}
+      <nav className="w-full bg-white border-b border-gray-100 py-2 z-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center space-x-2 text-sm text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
+          <div className="flex items-center space-x-2 text-xs text-gray-500" style={{ fontFamily: 'var(--font-lato)' }}>
             <Link href="/" className="hover:text-[#ED7424] transition-colors">
               Home
             </Link>
@@ -200,6 +199,8 @@ export default function YogaPage() {
           </div>
         </div>
       </nav>
+      
+      <Header />
       
       {/* Full-Screen Dynamic Hero Section */}
       <section 
