@@ -601,7 +601,7 @@ export default function YogaPage() {
             className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8"
             style={{ color: "#2D3748", fontFamily: 'var(--font-space-grotesk)' }}
           >
-            How brands like <span className="bg-gradient-to-r from-[#ED7424] to-[#F19146] bg-clip-text text-transparent">Habuild</span> scale impact with Vacademy
+            How brands like <span className="bg-gradient-to-r from-[#ED7424] to-[#F19146] bg-clip-text text-transparent">Habuild</span> scale impact with the Yoga Platform
           </motion.h2>
 
           <motion.div
@@ -626,11 +626,11 @@ export default function YogaPage() {
                   Habuild Yoga
                 </h3>
                 <p className="text-gray-700 mb-6 leading-relaxed text-lg" style={{ fontFamily: 'var(--font-lato)' }}>
-                  When Habuild wanted to inspire thousands to build a consistent yoga habit, they turned to Vacademy. 
-                  With our platform, they now host daily live sessions for over 20,000 learners, offer progress tracking, and run scalable 21-day challenges — all under their own brand.
+                  When Habuild wanted to inspire thousands to build a consistent yoga habit, they turned to creating this platform. 
+                  With our platform, you can also host daily live sessions for over 20,000 members, offer progress tracking, and run scalable 21-day challenges — all under your own brand.
                 </p>
                 <blockquote className="text-gray-800 italic mb-6 text-lg border-l-4 border-[#ED7424] pl-4" style={{ fontFamily: 'var(--font-lato)' }}>
-                  &ldquo;Vacademy helped us create a seamless and impactful learning experience at scale.&rdquo;
+                  &ldquo;State of the Art online platform helped us create a seamless and impactful learning experience at scale.&rdquo;
                   <br />
                   <span className="font-semibold text-[#ED7424] not-italic">— Team Habuild</span>
                 </blockquote>
