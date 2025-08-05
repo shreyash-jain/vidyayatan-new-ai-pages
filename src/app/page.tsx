@@ -338,7 +338,7 @@ export default function Home() {
                   className="mt-6 relative z-10"
               >
                   <Link
-                      href="/booking"
+                      href="/booking?source=vidyayatan"
                       className="group flex items-center justify-center gap-2 rounded-full px-8 py-3 font-medium text-white shadow-lg transition-all duration-300 text-base whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
                       style={{ fontFamily: 'var(--font-lato)', fontWeight: 500, boxShadow: '0 4px 24px 0 rgba(160, 163, 232, 0.3)' }}
                   >

@@ -111,7 +111,7 @@ export const Header = () => {
               </button>
             ) : isYogaPage ? (
               <Link
-                href="/booking"
+                href="/booking?source=yoga"
                 className="group flex items-center justify-center gap-2 rounded-full px-6 py-2 font-medium text-white shadow-md text-sm whitespace-nowrap bg-gradient-to-r from-[#ED7424] to-[#F19146] hover:from-[#F19146] hover:to-[#ED7424]"
                 style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
               >
@@ -120,7 +120,7 @@ export const Header = () => {
               </Link>
             ) : (
               <Link
-                href="/booking"
+                href="/booking?source=vidyayatan"
                 className="group flex items-center justify-center gap-2 rounded-full px-6 py-2 font-medium text-white shadow-md text-sm whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
                 style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
               >
@@ -185,7 +185,7 @@ export const Header = () => {
                 </button>
               ) : isYogaPage ? (
                 <Link
-                  href="/booking"
+                  href="/booking?source=yoga"
                   className="group flex items-center justify-center gap-2 rounded-full px-8 py-4 font-medium text-white shadow-lg text-lg whitespace-nowrap bg-gradient-to-r from-[#ED7424] to-[#F19146] hover:from-[#F19146] hover:to-[#ED7424]"
                   style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
                   onClick={() => setIsMenuOpen(false)}
@@ -195,7 +195,7 @@ export const Header = () => {
                 </Link>
               ) : (
                 <Link
-                  href="/booking"
+                  href="/booking?source=vidyayatan"
                   className="group flex items-center justify-center gap-2 rounded-full px-8 py-4 font-medium text-white shadow-lg text-lg whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
                   style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
                   onClick={() => setIsMenuOpen(false)}

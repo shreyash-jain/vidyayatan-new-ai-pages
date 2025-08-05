@@ -10,6 +10,23 @@ export function middleware(request: NextRequest) {
     console.log(`🔍 Middleware: ${hostname}${pathname}`);
   }
 
+  // Handle Yoga domain (yoga.vacademy.io)
+  if (hostname.includes('yoga.vacademy')) {
+    console.log(`🧘 Yoga domain detected: ${hostname}${pathname}`);
+    
+    // Redirect all paths to the yoga page
+    if (pathname !== '/yoga') {
+      console.log(`🔄 Redirecting ${pathname} to /yoga`);
+      const url = request.nextUrl.clone();
+      url.pathname = '/yoga';
+      return NextResponse.redirect(url);
+    }
+    
+    // Allow access to yoga page
+    console.log(`✅ Allowing yoga route: ${pathname}`);
+    return NextResponse.next();
+  }
+
   // Handle Vacademy domain (lms.vacademy.localhost or lms.vacademy.io)
   if (hostname.includes('vacademy')) {
     console.log(`🟢 Vacademy domain detected: ${hostname}${pathname}`);

@@ -85,7 +85,7 @@ export function Footer() {
             </p>
             <div className="mt-6">
               <Link
-                href="/booking"
+                href="/booking?source=vidyayatan"
                 className="group w-full flex items-center justify-center gap-2 rounded-full px-6 py-3 font-medium text-white shadow-md text-sm whitespace-nowrap bg-gradient-to-r from-[#a0a3e8] to-[#888ae0] hover:from-[#888ae0] hover:to-[#a0a3e8]"
                 style={{ fontFamily: 'var(--font-lato)', fontWeight: 500 }}
               >

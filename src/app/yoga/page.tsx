@@ -32,6 +32,35 @@ import { motion, AnimatePresence } from "framer-motion";
 import { DecorativeCircles } from "@/components/ui/decorative-circles";
 import React, { useState, useEffect } from "react";
 
+// Currency conversion rates (as of current date - you may want to use a real API)
+const CURRENCY_RATES = {
+  INR: 1,
+  USD: 0.012, // 1 INR = 0.012 USD
+  EUR: 0.011, // 1 INR = 0.011 EUR
+  GBP: 0.0095, // 1 INR = 0.0095 GBP
+  AUD: 0.018, // 1 INR = 0.018 AUD
+  CAD: 0.016, // 1 INR = 0.016 CAD
+};
+
+const CURRENCY_SYMBOLS = {
+  INR: '₹',
+  USD: '$',
+  EUR: '€',
+  GBP: '£',
+  AUD: 'A$',
+  CAD: 'C$',
+};
+
+// Pricing data in INR (base currency)
+const PRICING_DATA = {
+  yogaCRM: {
+    monthly: 30000, // Updated monthly price
+    annual: 230000,
+    studentLimit: 200,
+    scalingPerUser: 200
+  }
+};
+
 
 
 
@@ -77,7 +106,7 @@ const testimonials = [
       title: "Your branded platform",
       subtitle: "Build a digital home that reflects your identity",
       cta: "Book a Demo",
-      ctaLink: "/booking",
+      ctaLink: "/booking?source=yoga",
       backgroundImage: "/assets/yoga/hero-image-2.jpg"
     },
     {
@@ -93,6 +122,35 @@ const testimonials = [
 export default function YogaPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [selectedCurrency, setSelectedCurrency] = useState('INR');
+
+  // Currency conversion function
+  const convertCurrency = (amount: number, fromCurrency: string, toCurrency: string) => {
+    if (fromCurrency === toCurrency) return amount;
+    const inrAmount = amount / CURRENCY_RATES[fromCurrency as keyof typeof CURRENCY_RATES];
+    return inrAmount * CURRENCY_RATES[toCurrency as keyof typeof CURRENCY_RATES];
+  };
+
+  // Format currency display
+  const formatCurrency = (amount: number, currency: string) => {
+    const convertedAmount = convertCurrency(amount, 'INR', currency);
+    const symbol = CURRENCY_SYMBOLS[currency as keyof typeof CURRENCY_SYMBOLS];
+    
+    if (currency === 'INR') {
+      return `${symbol}${convertedAmount.toLocaleString('en-IN')}`;
+    } else {
+      return `${symbol}${convertedAmount.toFixed(0)}`;
+    }
+  };
+
+  // Debug function to check currency switching
+  console.log('Selected currency:', selectedCurrency);
+  console.log('Monthly price in selected currency:', formatCurrency(PRICING_DATA.yogaCRM.monthly, selectedCurrency));
+
+  // Force re-render when currency changes
+  useEffect(() => {
+    console.log('Currency changed to:', selectedCurrency);
+  }, [selectedCurrency]);
 
   // Auto-slide functionality
   useEffect(() => {
@@ -129,6 +187,19 @@ export default function YogaPage() {
     <main className="relative w-full min-h-screen flex flex-col items-center bg-white overflow-hidden">
       <DecorativeCircles />
       <Header />
+      
+      {/* Breadcrumb Navigation */}
+      <nav className="w-full bg-gray-50 border-b border-gray-200 py-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center space-x-2 text-sm text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
+            <Link href="/" className="hover:text-[#ED7424] transition-colors">
+              Home
+            </Link>
+            <span>/</span>
+            <span className="text-[#ED7424] font-medium">Yoga Platform</span>
+          </div>
+        </div>
+      </nav>
       
       {/* Full-Screen Dynamic Hero Section */}
       <section 
@@ -860,7 +931,7 @@ export default function YogaPage() {
               className="mt-12"
             >
               <Link
-                href="/booking"
+                href="/booking?source=yoga"
                 className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#ED7424] to-[#F19146] text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-lg"
                 style={{ fontFamily: 'var(--font-space-grotesk)' }}
               >
@@ -1114,7 +1185,7 @@ export default function YogaPage() {
             className="text-center mt-12"
           >
             <Link
-              href="/booking"
+              href="/booking?source=yoga"
               className="inline-flex items-center px-10 py-5 bg-gradient-to-r from-[#ED7424] to-[#F19146] text-white font-semibold text-xl rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
               style={{ fontFamily: 'var(--font-space-grotesk)' }}
             >
@@ -1287,7 +1358,7 @@ export default function YogaPage() {
       </section>
 
       {/* Pricing Section */}
-      <section className="w-full py-12 md:py-16 bg-gradient-to-br from-[#FFF9F4] to-[#FDEDD7]" id="pricing">
+      <section className="w-full py-12 md:py-16 bg-gradient-to-br from-[#FFF9F4] to-[#FDEDD7] relative z-10" id="pricing">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <motion.div
@@ -1305,160 +1376,254 @@ export default function YogaPage() {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6" style={{ color: "#2D3748", fontFamily: 'var(--font-space-grotesk)' }}>
               Choose Your Perfect Plan
             </h2>
-            <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+            <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-8" style={{ fontFamily: 'var(--font-lato)' }}>
               Start with our free trial and scale as you grow. No hidden fees, no surprises.
             </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {/* Starter Plan */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300"
-            >
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-gray-800 mb-4" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                  Starter
-                </h3>
-                <div className="text-4xl font-bold text-[#ED7424] mb-2" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                  Free
-                </div>
-                <p className="text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
-                  Perfect for new wellness trainers
-                </p>
-              </div>
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-500" />
-                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Up to 50 students</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-500" />
-                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Basic branding</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-500" />
-                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Live classes</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-500" />
-                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Email support</span>
-                </li>
-              </ul>
-              <Link
-                href="/booking"
-                className="w-full block text-center bg-gradient-to-r from-[#ED7424] to-[#F19146] text-white font-semibold py-3 rounded-xl hover:shadow-lg transition-all duration-300"
-                style={{ fontFamily: 'var(--font-space-grotesk)' }}
-              >
-                Start Free Trial
-              </Link>
-            </motion.div>
-
-            {/* Pro Plan */}
+            {/* Currency Switcher */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="bg-white rounded-2xl shadow-xl p-8 border-2 border-[#ED7424] relative hover:shadow-2xl transition-all duration-300"
+              className="flex flex-col items-center mb-8 space-y-4 relative z-20"
             >
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#ED7424] to-[#F19146] text-white px-6 py-2 rounded-full text-sm font-semibold">
-                Most Popular
-              </div>
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-gray-800 mb-4" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                  Pro
-                </h3>
-                <div className="text-4xl font-bold text-[#ED7424] mb-2" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                  $49
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-2 relative z-30">
+                <div className="flex flex-wrap items-center gap-1 justify-center">
+                  {Object.keys(CURRENCY_SYMBOLS).map((currency) => (
+                    <button
+                      key={currency}
+                      onClick={() => {
+                        console.log('Currency clicked:', currency);
+                        setSelectedCurrency(currency);
+                      }}
+                      className={`px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 relative z-40 ${
+                        selectedCurrency === currency
+                          ? 'bg-gradient-to-r from-[#ED7424] to-[#F19146] text-white shadow-lg'
+                          : 'text-gray-600 hover:text-[#ED7424] hover:bg-gray-50'
+                      }`}
+                      style={{ fontFamily: 'var(--font-lato)' }}
+                    >
+                      {CURRENCY_SYMBOLS[currency as keyof typeof CURRENCY_SYMBOLS]} {currency}
+                    </button>
+                  ))}
                 </div>
-                <p className="text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
-                  per month
-                </p>
               </div>
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-500" />
-                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Up to 500 students</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-500" />
-                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Full branding</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-500" />
-                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Advanced analytics</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-500" />
-                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Priority support</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-500" />
-                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Referral system</span>
-                </li>
-              </ul>
-              <Link
-                href="/booking"
-                className="w-full block text-center bg-gradient-to-r from-[#ED7424] to-[#F19146] text-white font-semibold py-3 rounded-xl hover:shadow-lg transition-all duration-300"
-                style={{ fontFamily: 'var(--font-space-grotesk)' }}
-              >
-                Start Pro Trial
-              </Link>
+              <p className="text-xs text-gray-500 text-center max-w-md" style={{ fontFamily: 'var(--font-lato)' }}>
+                * Exchange rates are approximate and may vary. Final pricing will be calculated at the time of purchase.
+              </p>
+              {/* Debug info */}
+              <p className="text-xs text-gray-400 text-center">
+                Current currency: {selectedCurrency} | Monthly: {formatCurrency(PRICING_DATA.yogaCRM.monthly, selectedCurrency)}
+              </p>
             </motion.div>
+          </div>
 
-            {/* Business Plan */}
+                    <div className="max-w-4xl mx-auto">
+            {/* Complete Yoga Platform Plan */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300"
+              transition={{ delay: 0.1 }}
+              className="bg-white rounded-2xl shadow-xl p-8 border-2 border-[#ED7424] relative hover:shadow-2xl transition-all duration-300"
             >
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#ED7424] to-[#F19146] text-white px-6 py-2 rounded-full text-sm font-semibold">
+                🧘‍♂️ Complete Yoga Platform
+              </div>
               <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-gray-800 mb-4" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                  Business
-                </h3>
-                <div className="text-4xl font-bold text-[#ED7424] mb-2" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-                  $99
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-700 mb-2" style={{ fontFamily: 'var(--font-lato)' }}>
+                      Monthly Plan
+                    </h4>
+                    <div className="text-3xl font-bold text-[#ED7424] mb-1" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                      {formatCurrency(PRICING_DATA.yogaCRM.monthly, selectedCurrency)}
+                    </div>
+                    <p className="text-gray-600 text-sm" style={{ fontFamily: 'var(--font-lato)' }}>
+                      per month
+                    </p>
+                  </div>
+                  <div className="border-t border-gray-200 pt-4">
+                    <h4 className="text-lg font-semibold text-gray-700 mb-2" style={{ fontFamily: 'var(--font-lato)' }}>
+                      Annual Plan
+                    </h4>
+                    <div className="text-3xl font-bold text-[#ED7424] mb-1" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                      {formatCurrency(PRICING_DATA.yogaCRM.annual, selectedCurrency)}
+                    </div>
+                    <p className="text-gray-600 text-sm" style={{ fontFamily: 'var(--font-lato)' }}>
+                      per year
+                    </p>
+                  </div>
                 </div>
-                <p className="text-gray-600" style={{ fontFamily: 'var(--font-lato)' }}>
-                  per month
+              </div>
+              <div className="mb-6">
+                <p className="text-gray-700 mb-4 text-center" style={{ fontFamily: 'var(--font-lato)' }}>
+                  <strong>Includes {PRICING_DATA.yogaCRM.studentLimit} students</strong>
+                </p>
+                <p className="text-gray-600 text-sm text-center mb-4" style={{ fontFamily: 'var(--font-lato)' }}>
+                  Scaling: {formatCurrency(PRICING_DATA.yogaCRM.scalingPerUser, selectedCurrency)}/user/year beyond {PRICING_DATA.yogaCRM.studentLimit} users
                 </p>
               </div>
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-500" />
-                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Unlimited students</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-500" />
-                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Custom domain</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-500" />
-                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>White-label solution</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-500" />
-                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Dedicated support</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-500" />
-                  <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>API access</span>
-                </li>
-              </ul>
+              
+              {/* Features Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                {/* LMS Features */}
+                <div>
+                  <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                    <span className="text-2xl">🎓</span>
+                    Learning Platform
+                  </h4>
+                  <ul className="space-y-3 text-sm">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Student & admin dashboards</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Branded portal & mobile app</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Course system & live classes</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Payments integration</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Assessments & certification</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                {/* CRM Features */}
+                <div>
+                  <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                    <span className="text-2xl">📊</span>
+                    CRM & Management
+                  </h4>
+                  <ul className="space-y-3 text-sm">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Lead management & follow-ups</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Trial booking system</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>CRM dashboard & analytics</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>Smart reminders & alerts</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>WhatsApp/email automation</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              {/* Additional Features */}
+              <div className="bg-gray-50 rounded-xl p-6 mb-8">
+                <h4 className="text-lg font-bold text-gray-800 mb-4 text-center" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                  🚀 Additional Features
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>24/7 support</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>White-label solution</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    <span className="text-gray-700" style={{ fontFamily: 'var(--font-lato)' }}>API access</span>
+                  </div>
+                </div>
+              </div>
+              
               <Link
-                href="/booking"
+                href="/booking?source=yoga"
                 className="w-full block text-center bg-gradient-to-r from-[#ED7424] to-[#F19146] text-white font-semibold py-3 rounded-xl hover:shadow-lg transition-all duration-300"
                 style={{ fontFamily: 'var(--font-space-grotesk)' }}
               >
-                Contact Sales
+                Get Started Now
               </Link>
             </motion.div>
+          </div>
+
+          {/* Additional Information */}
+          <div className="mt-12 text-center">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="bg-white rounded-xl p-6 shadow-lg border border-gray-100"
+              >
+                <h4 className="text-lg font-bold text-gray-800 mb-3" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                  👨‍🏫 Ideal For:
+                </h4>
+                <ul className="text-gray-700 text-sm space-y-2" style={{ fontFamily: 'var(--font-lato)' }}>
+                  <li>• Yoga studios & academies</li>
+                  <li>• Wellness trainers</li>
+                  <li>• Fitness instructors</li>
+                  <li>• Meditation teachers</li>
+                  <li>• Health coaches</li>
+                </ul>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+                className="bg-white rounded-xl p-6 shadow-lg border border-gray-100"
+              >
+                <h4 className="text-lg font-bold text-gray-800 mb-3" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                  💼 You&apos;ll Get:
+                </h4>
+                <ul className="text-gray-700 text-sm space-y-2" style={{ fontFamily: 'var(--font-lato)' }}>
+                  <li>• Complete digital ecosystem</li>
+                  <li>• Branded mobile app</li>
+                  <li>• Automated workflows</li>
+                  <li>• Payment processing</li>
+                  <li>• 24/7 customer support</li>
+                </ul>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+                className="bg-white rounded-xl p-6 shadow-lg border border-gray-100"
+              >
+                <h4 className="text-lg font-bold text-gray-800 mb-3" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                  📞 Ready to Scale?
+                </h4>
+                <p className="text-gray-700 text-sm mb-4" style={{ fontFamily: 'var(--font-lato)' }}>
+                  Let&apos;s build your digital yoga ecosystem.
+                </p>
+                <div className="space-y-2 text-sm">
+                  <p className="text-[#ED7424] font-semibold">📲 WhatsApp: +91-9479742410</p>
+                  <div className="text-gray-600">
+                    <p>www.vacademy.io/lms</p>
+                    <p>www.vidyayatan.com</p>
+                    <p>ai.vidyayatan.com</p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -1483,7 +1648,7 @@ export default function YogaPage() {
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <Link
-                href="/booking"
+                href="/booking?source=yoga"
                 className="group flex items-center justify-center gap-3 rounded-2xl px-10 py-5 font-semibold text-white shadow-xl transition-all duration-300 text-xl hover:shadow-2xl hover:scale-105 bg-gradient-to-r from-[#ED7424] to-[#F19146]"
                 style={{ fontFamily: 'var(--font-lato)' }}
               >
@@ -1492,7 +1657,7 @@ export default function YogaPage() {
               </Link>
               
               <Link
-                href="mailto:hello@vacademy.com"
+                href="mailto:hello@vidyayatan.com"
                 className="group flex items-center justify-center gap-3 rounded-2xl px-10 py-5 font-semibold transition-all duration-300 text-xl border-2 border-[#ED7424] text-[#ED7424] hover:bg-[#ED7424] hover:text-white"
                 style={{ fontFamily: 'var(--font-lato)' }}
               >
@@ -1505,14 +1670,81 @@ export default function YogaPage() {
                 Or call us directly:
               </p>
               <a
-                href="tel:+1-555-0123"
+                href="tel:+91-9479742410"
                 className="text-2xl font-bold text-[#ED7424] hover:text-[#F19146] transition-colors"
                 style={{ fontFamily: 'var(--font-space-grotesk)' }}
               >
-                +1 (555) 012-3456
+                +91-9479742410
               </a>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="w-full py-12 md:py-16 bg-gradient-to-br from-[#FFF9F4] to-[#FDEDD7]" id="faq">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full mb-6"
+            >
+              <span className="text-2xl">❓</span>
+              <span className="text-[#ED7424] font-semibold text-sm" style={{ fontFamily: 'var(--font-lato)' }}>
+                Frequently Asked Questions
+              </span>
+            </motion.div>
+            
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6" style={{ color: "#2D3748", fontFamily: 'var(--font-space-grotesk)' }}>
+              Everything You Need to Know
+            </h2>
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+              Get answers to the most common questions about Vacademy and how it can transform your wellness business.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {[
+              {
+                question: "How much does Vacademy cost?",
+                answer: "Vacademy starts at ₹30,000/month for the complete yoga platform with 200 students included. Additional users cost ₹200/user/year beyond the base limit."
+              },
+              {
+                question: "What features are included in Vacademy?",
+                answer: "Vacademy includes live session management, member management, payment processing, video library, progress tracking, automated reminders, branded mobile app, and analytics dashboard."
+              },
+              {
+                question: "Is Vacademy suitable for yoga instructors?",
+                answer: "Yes, Vacademy is specifically designed for yoga instructors, fitness trainers, and wellness professionals. It includes features like class scheduling, client progress tracking, and automated session reminders."
+              },
+              {
+                question: "Can I customize the platform with my branding?",
+                answer: "Yes, Vacademy offers white-label solutions where you can customize the platform with your own branding, logo, and colors to create a seamless experience for your students."
+              },
+              {
+                question: "Do you offer support and training?",
+                answer: "Yes, we provide 24/7 customer support and comprehensive training to help you get started with Vacademy. Our team will guide you through the setup process and answer any questions."
+              }
+            ].map((faq, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+              >
+                <h3 className="text-xl font-bold text-gray-800 mb-4" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                  {faq.question}
+                </h3>
+                <p className="text-gray-700 leading-relaxed" style={{ fontFamily: 'var(--font-lato)' }}>
+                  {faq.answer}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -1637,7 +1869,7 @@ export default function YogaPage() {
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <Link
-                href="/booking"
+                href="/booking?source=yoga"
                 className="group flex items-center justify-center gap-3 rounded-2xl px-10 py-5 font-semibold text-[#ED7424] bg-white shadow-xl transition-all duration-300 text-xl hover:shadow-2xl hover:scale-105"
                 style={{ fontFamily: 'var(--font-lato)' }}
               >
@@ -1646,7 +1878,7 @@ export default function YogaPage() {
               </Link>
               
               <Link
-                href="/booking"
+                href="/booking?source=yoga"
                 className="group flex items-center justify-center gap-3 rounded-2xl px-10 py-5 font-semibold transition-all duration-300 text-xl border-2 border-white text-white hover:bg-white hover:text-[#ED7424]"
                 style={{ fontFamily: 'var(--font-lato)' }}
               >

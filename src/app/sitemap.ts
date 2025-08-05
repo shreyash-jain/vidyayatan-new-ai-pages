@@ -11,10 +11,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Vacademy domain sitemap - focused on fitness/yoga content
     return [
       {
-        url: `${baseUrl}/blog`,
+        url: `${baseUrl}/yoga`,
         lastModified: currentDate,
         changeFrequency: 'weekly',
         priority: 1,
+      },
+      {
+        url: `${baseUrl}/blog`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly',
+        priority: 0.9,
       },
       {
         url: `${baseUrl}/blog/10x_growth`,
@@ -90,8 +96,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/yoga`,
       lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/booking`,

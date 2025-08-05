@@ -17,12 +17,13 @@ export interface BookingFormData {
   name: string
   email: string
   phone: string
+  source?: 'vidyayatan' | 'yoga'
   created_at?: string
   updated_at?: string
 }
 
 // Function to send emails via API route
-async function sendBookingEmails(data: { name: string; email: string; phone: string }) {
+async function sendBookingEmails(data: { name: string; email: string; phone: string; source?: 'vidyayatan' | 'yoga' }) {
   try {
     const response = await fetch('/api/send-booking-email', {
       method: 'POST',
@@ -55,6 +56,7 @@ export async function submitBookingForm(data: Omit<BookingFormData, 'id' | 'crea
           name: data.name,
           email: data.email,
           phone: data.phone,
+          source: data.source || 'vidyayatan',
         }
       ])
       .select()
@@ -69,6 +71,7 @@ export async function submitBookingForm(data: Omit<BookingFormData, 'id' | 'crea
         name: data.name,
         email: data.email,
         phone: data.phone,
+        source: data.source,
       });
 
       console.log('Email results:', emailResults);
