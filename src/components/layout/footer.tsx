@@ -55,7 +55,7 @@ export const Footer = () => {
           <div className="md:col-span-2">
             <div className="flex items-center mb-4">
               <Image
-                src="/Vacademy Logo Short.svg"
+                src="/assets/logos/vacademy_logo_short.svg"
                 alt="Vacademy"
                 width={120}
                 height={40}

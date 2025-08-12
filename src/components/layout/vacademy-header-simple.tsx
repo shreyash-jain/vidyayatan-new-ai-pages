@@ -12,7 +12,7 @@ export const VacademyHeaderSimple = () => {
           {/* Logo */}
           <Link href="/blog" className="flex items-center">
             <Image
-              src="/Vacademy Logo Short.svg"
+              src="/assets/logos/vacademy_logo_short.svg"
               alt="Vacademy"
               width={64}
               height={40}

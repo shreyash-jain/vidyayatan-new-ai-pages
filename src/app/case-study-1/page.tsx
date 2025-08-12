@@ -223,7 +223,7 @@ export default function CaseStudy1() {
               >
                 <div className="w-20 h-20 bg-white rounded-2xl p-3 mx-auto mb-3 border border-gray-200 shadow-sm animate-float-slow animate-glow">
                   <Image
-                    src="/Vacademy Logo Short.svg"
+                    src="/assets/logos/vacademy_logo_short.svg"
                     alt="Vacademy Logo"
                     width={64}
                     height={64}
