@@ -5,7 +5,6 @@ import Link from "next/link";
 import { 
   ArrowRight, 
   MessageSquare, 
-  Smartphone, 
   Bell, 
   Zap,
   Repeat,
@@ -61,7 +60,7 @@ export default function AutomationSecretBlog() {
              <div>
                <h2 className="text-3xl font-bold text-gray-900 mb-6">Mobile-First Engagement</h2>
                <p className="text-gray-600 mb-6 leading-relaxed">
-                 HABUILD realized early on that their users weren't checking emails for workout reminders. They were on WhatsApp. 
+                 HABUILD realized early on that their users weren&apos;t checking emails for workout reminders. They were on WhatsApp. 
                  But manually messaging 500 people is hard. Messaging 20 Lakh people is impossible.
                </p>
                <h3 className="text-xl font-bold text-gray-900 mb-4">The Challenge:</h3>
@@ -129,14 +128,14 @@ export default function AutomationSecretBlog() {
                   <UserCheck className="w-10 h-10 text-[#ec7524] mb-4" />
                   <h3 className="text-xl font-bold text-gray-900 mb-2">Attendance Confirmation</h3>
                   <p className="text-gray-600 text-sm">
-                    Post-session, the system checks who attended. Attendees get a "Great Job!" message boosting their streak count.
+                    Post-session, the system checks who attended. Attendees get a &quot;Great Job!&quot; message boosting their streak count.
                   </p>
                </div>
                <div className="p-6 rounded-xl border border-gray-100 hover:border-orange-200 transition-colors">
                   <Zap className="w-10 h-10 text-[#ec7524] mb-4" />
                   <h3 className="text-xl font-bold text-gray-900 mb-2">Re-engagement Loops</h3>
                   <p className="text-gray-600 text-sm">
-                    Missed 3 days? The system automatically triggers a gentle "We miss you" flow, often offering a quick 10-minute catch-up video.
+                    Missed 3 days? The system automatically triggers a gentle &quot;We miss you&quot; flow, often offering a quick 10-minute catch-up video.
                   </p>
                </div>
             </div>
