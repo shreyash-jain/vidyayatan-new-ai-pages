@@ -4,12 +4,13 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    'Missing Supabase environment variables. Please create a .env.local file with NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY. See ENVIRONMENT_SETUP.md for details.'
-  )
+  console.warn('Missing Supabase environment variables. Functionality may be limited.')
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export const supabase = createClient(
+  supabaseUrl || 'https://example.com', 
+  supabaseAnonKey || 'dummy-key'
+)
 
 // Type for booking form data
 export interface BookingFormData {

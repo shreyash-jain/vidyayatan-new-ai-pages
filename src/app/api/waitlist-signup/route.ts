@@ -4,7 +4,7 @@ import { Resend } from 'resend';
 
 export const runtime = 'edge';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Resend init moved to handler
 
 function createWaitlistNotificationEmail(email: string) {
   return `
@@ -75,6 +75,7 @@ export async function POST(request: NextRequest) {
     // Send notification email to shreyash@vidyayatan.com
     if (process.env.RESEND_API_KEY) {
       try {
+        const resend = new Resend(process.env.RESEND_API_KEY);
         await resend.emails.send({
           from: 'Vacademy AI <onboarding@resend.dev>',
           to: 'shreyash@vidyayatan.com',
