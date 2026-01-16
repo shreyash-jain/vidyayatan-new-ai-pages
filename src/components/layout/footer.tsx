@@ -55,7 +55,7 @@ export const Footer = () => {
           <div className="md:col-span-2">
             <div className="flex items-center mb-4">
               <Image
-                src="/Vacademy Logo Short.svg"
+                src="/assets/logos/vacademy_logo_short.svg"
                 alt="Vacademy"
                 width={120}
                 height={40}
@@ -71,7 +71,7 @@ export const Footer = () => {
             <div className="flex items-center gap-6 mb-6">
               <div className="flex items-center gap-3 bg-white/60 backdrop-blur-sm px-3 py-2 rounded-lg border border-gray-200">
                 <Image
-                  src="/iso 1.webp"
+                  src="/assets/iso/iso_1.webp"
                   alt="ISO Certification 1"
                   width={32}
                   height={32}
@@ -81,7 +81,7 @@ export const Footer = () => {
               </div>
               <div className="flex items-center gap-3 bg-white/60 backdrop-blur-sm px-3 py-2 rounded-lg border border-gray-200">
                 <Image
-                  src="/iso 2.webp"
+                  src="/assets/iso/iso_2.webp"
                   alt="ISO Certification 2"
                   width={32}
                   height={32}

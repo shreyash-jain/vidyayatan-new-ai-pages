@@ -138,7 +138,7 @@ export default function CaseStudy1() {
               >
                 <div className="w-64 h-64 sm:w-80 sm:h-80 bg-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-gray-200 hover:scale-105 transition-transform duration-300 animate-float animate-rotate-slow">
                   <Image
-                    src="/assets/case-studies/ssdc/Sri sai das classes logo.jpeg"
+                    src="/assets/case-studies/ssdc/sri_sai_das_classes_logo.jpeg"
                     alt="Sri Sai Das Coaching Classes Logo"
                     width={320}
                     height={320}
@@ -189,7 +189,7 @@ export default function CaseStudy1() {
               >
                 <div className="w-20 h-20 bg-white rounded-2xl p-3 mx-auto mb-3 border border-gray-200 shadow-sm animate-float-slow animate-glow">
                   <Image
-                    src="/assets/case-studies/ssdc/Sri sai das classes logo.jpeg"
+                    src="/assets/case-studies/ssdc/sri_sai_das_classes_logo.jpeg"
                     alt="SSDC Logo"
                     width={64}
                     height={64}
@@ -223,7 +223,7 @@ export default function CaseStudy1() {
               >
                 <div className="w-20 h-20 bg-white rounded-2xl p-3 mx-auto mb-3 border border-gray-200 shadow-sm animate-float-slow animate-glow">
                   <Image
-                    src="/Vacademy Logo Short.svg"
+                    src="/assets/logos/vacademy_logo_short.svg"
                     alt="Vacademy Logo"
                     width={64}
                     height={64}
@@ -344,7 +344,7 @@ export default function CaseStudy1() {
               >
                 <div className="w-full max-w-sm">
                   <Image
-                    src="/assets/case-studies/ssdc/ssdc event.svg"
+                    src="/assets/case-studies/ssdc/ssdc_event.svg"
                     alt="SSDC Institute"
                     width={300}
                     height={225}
@@ -371,8 +371,8 @@ export default function CaseStudy1() {
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 bg-white rounded-xl p-2 shadow-sm border border-gray-200">
                     <Image
-                      src="/assets/case-studies/ssdc/Sri sai das classes logo.jpeg"
-                      alt="Sri Sai Das Coaching Classes Logo"
+                    src="/assets/case-studies/ssdc/sri_sai_das_classes_logo.jpeg"
+                    alt="Sri Sai Das Coaching Classes Logo"
                       width={32}
                       height={32}
                       className="w-full h-full object-contain"
