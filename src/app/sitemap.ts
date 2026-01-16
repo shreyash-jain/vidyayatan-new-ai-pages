@@ -46,6 +46,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: 'monthly',
         priority: 0.9,
       },
+      {
+        url: `${baseUrl}/blog/who_built_habuild_tech`,
+        lastModified: currentDate,
+        changeFrequency: 'monthly',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/blog/building_for_scale_habuild`,
+        lastModified: currentDate,
+        changeFrequency: 'monthly',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/blog/automation_secret_habuild`,
+        lastModified: currentDate,
+        changeFrequency: 'monthly',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/blog/custom_tech_vs_off_the_shelf_habuild`,
+        lastModified: currentDate,
+        changeFrequency: 'monthly',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/blog/google_sheets_to_ipo_ready`,
+        lastModified: currentDate,
+        changeFrequency: 'monthly',
+        priority: 0.9,
+      },
     ];
   }
   

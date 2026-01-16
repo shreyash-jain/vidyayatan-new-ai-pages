@@ -50,8 +50,62 @@ export default function BlogIndexPage() {
       tags: ["Lead Funnel", "Conversion", "Sales", "HABUILD"],
       publishedDate: "2024-01-30",
       featured: true
+    },
+    {
+      slug: "who_built_habuild_tech",
+      title: "Who Built HABUILD’s Tech? The Story Behind Scaling to 20 Lakh Users",
+      subtitle: "Vidyayatan x HABUILD Partnership",
+      description: "When HABUILD needed to scale from a local community to a global movement, they partnered with Vidyayatan Infotech to build a custom technology ecosystem that powered 10x growth.",
+      readTime: "5 min read",
+      category: "Tech Partnership",
+      tags: ["Success Story", "Partnership", "Scaling", "HABUILD"],
+      publishedDate: "2024-02-05",
+      featured: true
+    },
+    {
+      slug: "building_for_scale_habuild",
+      title: "Building for Scale: How We Architected HABUILD to Handle 20 Lakh Members",
+      subtitle: "Engineering Case Study",
+      description: "Scaling from 300 to 20 Lakh users requires a fundamental rethink of architecture. Learn how we handled 60k+ concurrent users with 99.99% uptime.",
+      readTime: "10 min read",
+      category: "Engineering",
+      tags: ["Architecture", "Scalability", "AWS", "HABUILD"],
+      publishedDate: "2024-02-10",
+      featured: true
+    },
+    {
+      slug: "automation_secret_habuild",
+      title: "The Automation Secret: How HABUILD Sends Personalized WhatsApps at Scale",
+      subtitle: "User Retention Strategy",
+      description: "In a mobile-first world, email is ignored. Discover the intelligent WhatsApp automation engine that drives HABUILD's industry-leading retention rates.",
+      readTime: "6 min read",
+      category: "Automation",
+      tags: ["WhatsApp", "Retention", "Automation", "HABUILD"],
+      publishedDate: "2024-02-15",
+      featured: true
+    },
+    {
+      slug: "custom_tech_vs_off_the_shelf_habuild",
+      title: "Why HABUILD Chose Custom Tech Over Off-the-Shelf Tools",
+      subtitle: "Build vs. Buy",
+      description: "Why generic LMS platforms failed HABUILD's specific needs like 'Pause Days' and how custom technology became their competitive advantage.",
+      readTime: "7 min read",
+      category: "Strategy",
+      tags: ["SaaS", "Custom Dev", "Business Strategy"],
+      publishedDate: "2024-02-20",
+      featured: false
+    },
+    {
+      slug: "google_sheets_to_ipo_ready",
+      title: "From Google Sheets to IPO-Ready: The Digital Transformation Playbook",
+      subtitle: "Strategic Guide",
+      description: "Every great business starts on a spreadsheet. Here is the roadmap for transitioning from manual chaos to automated enterprise structure.",
+      readTime: "8 min read",
+      category: "Guide",
+      tags: ["Digital Transformation", "Growth", "Startups"],
+      publishedDate: "2024-02-25",
+      featured: false
     }
-    // Future blog posts can be added here
   ];
 
   return (
