@@ -36,7 +36,7 @@ export default function BuildingForScaleBlog() {
             </h1>
             
             <p className="text-lg text-gray-600 mb-8 max-w-3xl leading-relaxed">
-              Scaling from 300 to 20 Lakh users isn't just about adding more servers. It requires a fundamental rethink of architecture, database design, and real-time processing.
+              Scaling from 300 to 20 Lakh users isn&apos;t just about adding more servers. It requires a fundamental rethink of architecture, database design, and real-time processing.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -130,7 +130,7 @@ export default function BuildingForScaleBlog() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Engineering the "Perfect" Session</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Engineering the &quot;Perfect&quot; Session</h2>
             <p className="text-gray-600">
                How do you track attendance for 10,000 people on Zoom and YouTube simultaneously?
             </p>
@@ -163,7 +163,7 @@ export default function BuildingForScaleBlog() {
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Data Integrity</h3>
                 <p className="text-gray-600 text-sm">
-                  Automated reconciliation ensures that network blips don't result in lost attendance records for loyal members.
+                  Automated reconciliation ensures that network blips don&apos;t result in lost attendance records for loyal members.
                 </p>
              </div>
           </div>

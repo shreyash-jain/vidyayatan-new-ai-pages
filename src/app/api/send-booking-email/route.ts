@@ -3,7 +3,7 @@ import { Resend } from 'resend';
 
 export const runtime = 'edge';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Resend client initialized in handler
 
 export interface BookingEmailData {
   name: string;
@@ -151,6 +151,8 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
+    
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     const body = await request.json();
     const { name, email, phone, source } = body as BookingEmailData;

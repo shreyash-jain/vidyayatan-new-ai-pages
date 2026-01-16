@@ -6,7 +6,6 @@ import {
   ArrowRight, 
   FileSpreadsheet, 
   ArrowUpRight, 
-  CheckSquare, 
   AlertTriangle,
   Briefcase
 } from "lucide-react";
@@ -33,7 +32,7 @@ export default function SheetsToIpoBlog() {
             </h1>
             
             <p className="text-lg text-gray-600 mb-8 max-w-3xl leading-relaxed">
-              Every great business starts on a spreadsheet. But successful ones don't stay there. 
+              Every great business starts on a spreadsheet. But successful ones don&apos;t stay there. 
               Here is the roadmap for transitioning from manual chaos to automated structure.
             </p>
             
@@ -62,7 +61,7 @@ export default function SheetsToIpoBlog() {
               {/* Stage 1 */}
               <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm relative">
                  <div className="w-10 h-10 bg-gray-600 text-white rounded-full flex items-center justify-center font-bold absolute -top-5 left-1/2 -translate-x-1/2">1</div>
-                 <h3 className="text-xl font-bold text-gray-900 text-center mt-6 mb-2">The "Hustle" Phase</h3>
+                 <h3 className="text-xl font-bold text-gray-900 text-center mt-6 mb-2">The &quot;Hustle&quot; Phase</h3>
                  <div className="flex justify-center mb-4"><FileSpreadsheet className="w-8 h-8 text-green-500" /></div>
                  <p className="text-gray-600 text-sm text-center">
                    <strong className="block text-gray-900 mb-1">Tools:</strong> Excel, WhatsApp Web, Paper Journals
@@ -75,20 +74,20 @@ export default function SheetsToIpoBlog() {
               {/* Stage 2 */}
               <div className="bg-white p-6 rounded-xl border-2 border-[#ec7524] shadow-lg relative transform scale-105">
                  <div className="w-10 h-10 bg-[#ec7524] text-white rounded-full flex items-center justify-center font-bold absolute -top-5 left-1/2 -translate-x-1/2">2</div>
-                 <h3 className="text-xl font-bold text-gray-900 text-center mt-6 mb-2">The "Breaking Point"</h3>
+                 <h3 className="text-xl font-bold text-gray-900 text-center mt-6 mb-2">The &quot;Breaking Point&quot;</h3>
                  <div className="flex justify-center mb-4"><AlertTriangle className="w-8 h-8 text-orange-500" /></div>
                  <p className="text-gray-600 text-sm text-center">
                    <strong className="block text-gray-900 mb-1">Tools:</strong> Fragmented SaaS (Zapier, Mailchimp)
                  </p>
                  <p className="text-gray-600 text-sm text-center mt-2">
-                   500 - 5,000 users. Errors start creeping in. "Did we bill User X?" becomes a common question. Growth stalls.
+                   500 - 5,000 users. Errors start creeping in. &quot;Did we bill User X?&quot; becomes a common question. Growth stalls.
                  </p>
               </div>
 
               {/* Stage 3 */}
               <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm relative">
                  <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold absolute -top-5 left-1/2 -translate-x-1/2">3</div>
-                 <h3 className="text-xl font-bold text-gray-900 text-center mt-6 mb-2">The "Scale" Phase</h3>
+                 <h3 className="text-xl font-bold text-gray-900 text-center mt-6 mb-2">The &quot;Scale&quot; Phase</h3>
                  <div className="flex justify-center mb-4"><ArrowUpRight className="w-8 h-8 text-blue-500" /></div>
                  <p className="text-gray-600 text-sm text-center">
                    <strong className="block text-gray-900 mb-1">Tools:</strong> Custom ERP/LMS Ecosystem
@@ -123,7 +122,7 @@ export default function SheetsToIpoBlog() {
                 ))}
              </div>
              <div className="mt-8 text-center">
-                <p className="text-gray-600 mb-4">If you checked more than 3, it's time to build.</p>
+                <p className="text-gray-600 mb-4">If you checked more than 3, it&apos;s time to build.</p>
                 <Link 
                    href="https://www.vacademy.io/book-demo"
                    target="_blank"
