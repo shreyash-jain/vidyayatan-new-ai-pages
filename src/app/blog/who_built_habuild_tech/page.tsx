@@ -3,8 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { 
-  ArrowRight, 
-  TrendingUp, 
+  ArrowRight,  
   Users, 
   Code2, 
   Rocket, 
@@ -39,7 +38,7 @@ export default function WhoBuiltHabuildTechBlog() {
             </h1>
             
             <p className="text-lg text-gray-600 mb-8 max-w-3xl leading-relaxed">
-              When HABUILD needed to scale from a local community to a global movement, they didn't just hire a dev shop. 
+              When HABUILD needed to scale from a local community to a global movement, they didn&apos;t just hire a dev shop. 
               They partnered with Vidyayatan Infotech to build a custom technology ecosystem that powered 10x growth.
             </p>
             
@@ -63,7 +62,7 @@ export default function WhoBuiltHabuildTechBlog() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">The "Who" Behind the Code</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">The &quot;Who&quot; Behind the Code</h2>
               <p className="text-gray-600 mb-4 leading-relaxed">
                  HABUILD was founded with a singular mission: helping people build sustainable habits through technology. 
                  But as they grew from 300 to thousands of users, their initial setup of Google Sheets and manual processes began to crumble.
@@ -106,7 +105,7 @@ export default function WhoBuiltHabuildTechBlog() {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Building the Engine for 20 Lakh Members</h2>
             <p className="text-gray-600">
-              Vidyayatan didn't just write code; we architected a digital ecosystem capable of handling 
+              Vidyayatan didn&apos;t just write code; we architected a digital ecosystem capable of handling 
               massive concurrency and personalized experiences.
             </p>
           </div>
@@ -179,13 +178,13 @@ export default function WhoBuiltHabuildTechBlog() {
                    <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2 mb-2">
                      <Lightbulb className="w-5 h-5 text-[#ec7524]" /> Technical Empathy
                    </h3>
-                   <p className="text-gray-600 text-sm">We understood that HABUILD wasn't just selling yoga classes; they were selling <em>habits</em>. The tech had to reinforce consistency, not just deliver video.</p>
+                   <p className="text-gray-600 text-sm">We understood that HABUILD wasn&apos;t just selling yoga classes; they were selling <em>habits</em>. The tech had to reinforce consistency, not just deliver video.</p>
                  </div>
                  <div>
                    <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2 mb-2">
                      <Shield className="w-5 h-5 text-[#ec7524]" /> Reliability at Scale
                    </h3>
-                   <p className="text-gray-600 text-sm">When you have 20 Lakh members, 99.9% uptime isn't a luxury; it's a necessity. Our architecture ensured the platform never crashed during peak morning workout hours.</p>
+                   <p className="text-gray-600 text-sm">When you have 20 Lakh members, 99.9% uptime isn&apos;t a luxury; it&apos;s a necessity. Our architecture ensured the platform never crashed during peak morning workout hours.</p>
                  </div>
                </div>
              </div>
@@ -200,7 +199,7 @@ export default function WhoBuiltHabuildTechBlog() {
             Looking for the Team to Build Your Vision?
           </h2>
           <p className="text-lg text-orange-100 mb-8 max-w-2xl mx-auto">
-            Vidyayatan Infotech builds the technology that powers global success stories. Let's discuss your growth.
+            Vidyayatan Infotech builds the technology that powers global success stories. Let&apos;s discuss your growth.
           </p>
           
           <Link 

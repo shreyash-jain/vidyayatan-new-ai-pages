@@ -8,7 +8,6 @@ import {
   Package, 
   Check, 
   X,
-  CreditCard,
   Calendar,
   BarChart,
   ShieldAlert
@@ -36,7 +35,7 @@ export default function CustomVsSaasBlog() {
             </h1>
             
             <p className="text-lg text-gray-600 mb-8 max-w-3xl leading-relaxed">
-              When you're small, SaaS works. When you're scaling to 20 Lakh members with unique business logic like "Pause Days" and "Whatsapp Streaks", generic tools become a cage.
+              When you&apos;re small, SaaS works. When you&apos;re scaling to 20 Lakh members with unique business logic like &quot;Pause Days&quot; and &quot;Whatsapp Streaks&quot;, generic tools become a cage.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -59,7 +58,7 @@ export default function CustomVsSaasBlog() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900">The Build vs. Buy Dilemma</h2>
-            <p className="text-gray-600 mt-2">Why standardized LMS platforms failed HABUILD's specific needs.</p>
+            <p className="text-gray-600 mt-2">Why standardized LMS platforms failed HABUILD&apos;s specific needs.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -74,7 +73,7 @@ export default function CustomVsSaasBlog() {
                 <ul className="space-y-4">
                   <li className="flex gap-3">
                      <X className="w-5 h-5 text-red-500 flex-shrink-0" />
-                     <span className="text-gray-600">No "Pause" functionality for memberships</span>
+                     <span className="text-gray-600">No &quot;Pause&quot; functionality for memberships</span>
                   </li>
                   <li className="flex gap-3">
                      <X className="w-5 h-5 text-red-500 flex-shrink-0" />
@@ -86,7 +85,7 @@ export default function CustomVsSaasBlog() {
                   </li>
                   <li className="flex gap-3">
                      <X className="w-5 h-5 text-red-500 flex-shrink-0" />
-                     <span className="text-gray-600">Generic reporting, no custom "habit" metrics</span>
+                     <span className="text-gray-600">Generic reporting, no custom &quot;habit&quot; metrics</span>
                   </li>
                 </ul>
              </div>
@@ -105,7 +104,7 @@ export default function CustomVsSaasBlog() {
                 <ul className="space-y-4">
                   <li className="flex gap-3">
                      <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                     <span className="text-gray-800 font-medium">Custom "Pause Membership" Logic</span>
+                     <span className="text-gray-800 font-medium">Custom &quot;Pause Membership&quot; Logic</span>
                      <p className="hidden">Users can pause their plan for sick days, and the system automatically extends the validity.</p>
                   </li>
                   <li className="flex gap-3">
@@ -121,7 +120,7 @@ export default function CustomVsSaasBlog() {
                   <li className="flex gap-3">
                      <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                      <span className="text-gray-800 font-medium">Habit-Building Analytics</span>
-                     <p className="hidden">Custom dashboards tracking "streaks", "consistency score", and "drop-off points".</p>
+                     <p className="hidden">Custom dashboards tracking &quot;streaks&quot;, &quot;consistency score&quot;, and &quot;drop-off points&quot;.</p>
                   </li>
                 </ul>
              </div>
@@ -135,7 +134,7 @@ export default function CustomVsSaasBlog() {
            <div className="grid md:grid-cols-3 gap-8">
               <div className="space-y-4">
                  <Calendar className="w-8 h-8 text-[#ec7524]" />
-                 <h3 className="text-xl font-bold text-gray-900">The "Pause" Button</h3>
+                 <h3 className="text-xl font-bold text-gray-900">The &quot;Pause&quot; Button</h3>
                  <p className="text-gray-600 text-sm">
                    Off-the-shelf tools assume a subscription runs 30 days straight. HABUILD needed to allow users to pause for illness or travel. 
                    Implementing this logic in a rigid SaaS was impossible. We built a dynamic validity engine that adjusts end-dates automatically.
